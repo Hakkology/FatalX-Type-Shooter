@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         lockState = new PlayerLockState(this);
         shootState = new PlayerShootState(this);
+        transform.position = new Vector2(-(Screen.width / 2) +1, 0) ;
 
         // İlk durumu ayarla
         SetState(lockState);
