@@ -24,28 +24,6 @@ public class SpaceObjectHandler : MonoBehaviour
         }
     }
 
-    // Atlas içindeki sprite'ları yükle
-    private void LoadSpriteAtlas(string path, List<Sprite> spriteList)
-    {
-        Sprite[] sprites = Resources.LoadAll<Sprite>(path);
-        
-        if (sprites.Length == 0)
-        {
-            Debug.LogError($"No sprites found in path: {path}");
-            return;
-        }
-
-        foreach (var sprite in sprites)
-        {
-            if (sprite != null)
-            {
-                spriteList.Add(sprite);
-            }
-        }
-
-        Debug.Log($"Loaded {sprites.Length} sprites from {path}");
-    }
-
     // Rastgele sprite döndür
     public Sprite GetRandomSprite(int wordLength)
     {

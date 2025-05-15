@@ -41,20 +41,10 @@ public class SpaceObject : MonoBehaviour
 
     void SpaceObjectSpriteLoader()
     {
-        switch (_word.Length)
+        Sprite selectedSprite = SpaceObjectHandler.Instance.GetRandomSprite(_word.Length);
+        if (selectedSprite != null)
         {
-            case < 4:
-                _spriteRenderer.sprite = spaceObjectSprites[0];
-                break;
-            case < 7:
-                _spriteRenderer.sprite = spaceObjectSprites[1];
-                break;
-            case < 10:
-                _spriteRenderer.sprite = spaceObjectSprites[2];
-                break;
-            default:
-                _spriteRenderer.sprite = spaceObjectSprites[3];
-                break;
+            _spriteRenderer.sprite = selectedSprite;
         }
     }
 
