@@ -7,7 +7,8 @@ using UnityEngine;
 public class SpaceObject : MonoBehaviour
 {
     public string _word;
-    private TextMeshProUGUI _wordText;
+    public TextMeshProUGUI _wordText;
+    private Canvas _canvas;
     private SpriteRenderer _spriteRenderer;
     private SpaceObjectSpawner _spawner;
 
@@ -17,8 +18,13 @@ public class SpaceObject : MonoBehaviour
 
     void Awake()
     {
-        _wordText = GetComponent<TextMeshProUGUI>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _canvas = GetComponentInChildren<Canvas>();
+        if (_canvas != null)
+        {
+            _canvas.renderMode = RenderMode.WorldSpace;
+            _canvas.worldCamera = Camera.main;
+        }
     }
     public void Initialize(SpaceObjectSpawner spawner, string word)
     {
@@ -42,6 +48,7 @@ public class SpaceObject : MonoBehaviour
     void SpaceObjectSpriteLoader()
     {
         Sprite selectedSprite = SpaceObjectHandler.Instance.GetRandomSprite(_word.Length);
+        Debug.Log("Gelen sprite:" + selectedSprite.name);
         if (selectedSprite != null)
         {
             _spriteRenderer.sprite = selectedSprite;

@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 495339258}
   - component: {fileID: 495339260}
   - component: {fileID: 495339259}
-  - component: {fileID: 495339261}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -177,6 +176,7 @@ MonoBehaviour:
   - {fileID: 400229701, guid: 4c9e84a753e8a344ab4c73ad10d1f56d, type: 3}
   - {fileID: 1129166283, guid: 4c9e84a753e8a344ab4c73ad10d1f56d, type: 3}
   - {fileID: -488553423, guid: 4c9e84a753e8a344ab4c73ad10d1f56d, type: 3}
+  cycleSpeed: 0.5
 --- !u!212 &495339260
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -229,19 +229,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &495339261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495339257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ad9aa05098d0d429730b42adb536d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cycleSpeed: 0.25
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +335,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -491,7 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnedWords: []
-  objectPrefab: {fileID: 0}
+  objectPrefab: {fileID: 3830197936071275406, guid: 4ea48759d4055a090a9dccac8f97aea3, type: 3}
   spawnRate: 1
   maxObjects: 10
 --- !u!4 &735316434
@@ -680,7 +667,7 @@ Transform:
   m_GameObject: {fileID: 1877890244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -11, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -699,7 +686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66c4c97aaaca104583b77906a698214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceObjectSpawner: {fileID: 0}
+  spaceObjectSpawner: {fileID: 735316433}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         lockState = new PlayerLockState(this);
         shootState = new PlayerShootState(this);
-        transform.position = new Vector2(-(Screen.width / 2) +1, 0) ;
+        // transform.position = new Vector2(-(Screen.width / 2) +1, 0) ;
 
         // İlk durumu ayarla
         SetState(lockState);
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public void SetState(IPlayerState newState)
     {
         currentState = newState;
-        Debug.Log("State Changed: " + newState.GetType().Name);
+        // Debug.Log("State Changed: " + newState.GetType().Name);
     }
 
     // Hedef ayarlama
