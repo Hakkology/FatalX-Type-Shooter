@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ShipHandler : MonoBehaviour
+public class ShipController : MonoBehaviour
 {
     public Sprite[] shipSprites;  
     private SpriteRenderer spriteRenderer;
@@ -34,7 +34,7 @@ public class ShipHandler : MonoBehaviour
             Sprite sprite1 = shipSprites[spriteIndex1];
             Sprite sprite2 = shipSprites[spriteIndex2];
             SetSprites(sprite1, sprite2);
-            Debug.Log("Ship Sprites Updated: " + ColorManager.Instance.CurrentColor);
+            // Debug.Log("Ship Sprites Updated: " + ColorManager.Instance.CurrentColor);
         }
         else
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,25 +8,33 @@ using UnityEngine;
 public class SpaceObject : MonoBehaviour
 {
     public string _word;
-    public TextMeshProUGUI _wordText;
+    private TextMeshProUGUI _wordText;
     private Canvas _canvas;
     private SpriteRenderer _spriteRenderer;
     private SpaceObjectSpawner _spawner;
 
     private float speed = 2;
     private int _hp;
-    private Sprite[] spaceObjectSprites;
+
+    public event Action LockedAsTargetEvent;
+    public event Action LaserHitEvent;
+    public event Action DestroyedEvent;
 
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _canvas = GetComponentInChildren<Canvas>();
-        if (_canvas != null)
-        {
-            _canvas.renderMode = RenderMode.WorldSpace;
-            _canvas.worldCamera = Camera.main;
-        }
+        _wordText = GetComponentInChildren<TextMeshProUGUI>();
+
+        _canvas.renderMode = RenderMode.WorldSpace;
+        _canvas.worldCamera = Camera.main;
+
+        // Eventlere metod bağlama
+        LockedAsTargetEvent += OnLockedAsTarget;
+        LaserHitEvent += OnLaserHit;
+        DestroyedEvent += OnDestroyed;
     }
+
     public void Initialize(SpaceObjectSpawner spawner, string word)
     {
         _spawner = spawner;
@@ -66,7 +75,7 @@ public class SpaceObject : MonoBehaviour
             if (_hp <= 0)
             {
                 Destroy(gameObject);
-                return true; 
+                return true;
             }
         }
         return false;
@@ -76,12 +85,37 @@ public class SpaceObject : MonoBehaviour
     {
         _wordText.text = _word;
     }
+
+    private void OnLockedAsTarget()
+    {
+        _wordText.color = Color.red;
+        Debug.Log("Target Locked: " + _word);
+
+        TakeDamage();
+    }
     
-    private void OnDestroy()
+    private void OnLaserHit()
+    {
+        bool isDead = TakeDamage();
+        if (isDead)
+            DestroyedEvent?.Invoke();
+    }
+
+    private void OnDestroyed()
     {
         if (_spawner != null)
-        {
             _spawner.DeSpawnObject(this._word);
-        }
+
+        Destroy(gameObject);
+    }
+    
+    public void InvokeLockedAsTarget()
+    {
+        LockedAsTargetEvent?.Invoke();
+    }
+
+    public void InvokeLaserHit()
+    {
+        LaserHitEvent?.Invoke();
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpaceObjectSpawner : MonoBehaviour
 {
     public List<string> spawnedWords = new List<string>();
+    public List<GameObject> spawnedObjects = new List<GameObject>();    
     private string[] words = {
         "apple", "orange", "banana", "cherry", "peach", "melon", "grape", "kiwi", "mango", "lemon",
         "strawberry", "blueberry", "raspberry", "watermelon", "pineapple", "coconut", "papaya", "plum", "pear", "tomato",
@@ -67,6 +68,7 @@ public class SpaceObjectSpawner : MonoBehaviour
             SpaceObject spaceObjectScript = spaceObject.GetComponent<SpaceObject>();
             spaceObjectScript.Initialize(this, selectedWord);
             spawnedWords.Add(selectedWord);
+            spawnedObjects.Add(spaceObject);
 
             yield return new WaitForSecondsRealtime(spawnRate);
         }

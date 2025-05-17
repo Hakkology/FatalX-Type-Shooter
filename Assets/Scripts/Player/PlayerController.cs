@@ -24,8 +24,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         currentState?.UpdateState();
-        if (lockedTarget == null)
+
+        if (lockedTarget == null || lockedTarget.Equals(null))
         {
+            ClearLockedTarget();
             SetState(lockState);
         }
     }
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     public void ShootLaserAtTarget()
     {
-        if (lockedTarget != null)
+        if (lockedTarget != null && !lockedTarget.Equals(null))
         {
             Debug.Log("Shooting Laser at: " + lockedTarget._word);
             bool destroyed = lockedTarget.TakeDamage(); 
@@ -65,6 +67,10 @@ public class PlayerController : MonoBehaviour
             {
                 ClearLockedTarget();
             }
+        }
+        else
+        {
+            ClearLockedTarget();
         }
     }
 }

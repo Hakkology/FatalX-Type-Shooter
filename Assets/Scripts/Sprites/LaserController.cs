@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LaserHandler : MonoBehaviour
+public class LaserController : MonoBehaviour
 {
     public Sprite redLaserSprite;
     public Sprite blueLaserSprite;
