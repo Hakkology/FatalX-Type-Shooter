@@ -1,5 +1,7 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Transform laserSpawnPoint;
 
     private SpaceObject lockedTarget;
+    private Light2D shootLight;
     // State Referansları
     private IPlayerState lockState;
     private IPlayerState shootState;
@@ -21,6 +24,14 @@ public class PlayerController : MonoBehaviour
 
         // İlk durumu ayarla
         SetState(lockState);
+
+        shootLight = laserSpawnPoint.GetComponent<Light2D>();
+        shootLight.color = GetLaserColor();
+        if (shootLight != null)
+        {
+            shootLight.enabled = true;  // Işık hep açık olacak, yoğunluğu kontrol edeceğiz
+            shootLight.intensity = 0;   // Başlangıçta görünmez
+        }
     }
 
     void Update()
@@ -58,9 +69,9 @@ public class PlayerController : MonoBehaviour
     {
         if (lockedTarget != null)
         {
-            lockedTarget.DestroyedEvent -= ClearLockedTarget;  
+            lockedTarget.DestroyedEvent -= ClearLockedTarget;
             lockedTarget = null;
-            SetState(lockState); 
+            SetState(lockState);
         }
     }
 
@@ -85,5 +96,38 @@ public class PlayerController : MonoBehaviour
         GameObject laser = LaserPool.Instance.GetLaser();
         var laserController = laser.GetComponent<LaserController>();
         laserController.ActivateLaser(laserSpawnPoint.position, transform.rotation);
+
+        FlashShootLight();
+    }
+    
+    private void FlashShootLight()
+    {
+        if (shootLight != null)
+        {
+            shootLight.DOKill(); 
+
+            DOTween.To(() => shootLight.intensity, x => shootLight.intensity = x, 3, 0.05f).OnComplete(() =>
+            {
+                DOTween.To(() => shootLight.intensity, x => shootLight.intensity = x, 0, 0.2f);
+            });
+        }
+    }
+
+    private Color GetLaserColor()
+    {
+        // Lazer rengi ColorManager'dan alınıyor
+        switch (ColorManager.Instance.CurrentColor)
+        {
+            case ColorManager.ShipColor.Red:
+                return Color.red;
+            case ColorManager.ShipColor.Blue:
+                return Color.blue;
+            case ColorManager.ShipColor.Green:
+                return Color.green;
+            case ColorManager.ShipColor.Yellow:
+                return Color.yellow;
+            default:
+                return Color.white;
+        }
     }
 }

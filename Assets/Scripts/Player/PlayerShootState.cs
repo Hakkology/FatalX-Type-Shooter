@@ -23,7 +23,8 @@ public class PlayerShootState : IPlayerState
             if (!string.IsNullOrEmpty(key))
             {
                 SpaceObject target = player.GetLockedTarget();
-                if (key[0] == target._word[0])
+
+                if (target._word.Length > 0 && key[0] == target._word[0])
                 {
                     player.ShootLaserAtTarget();
                 }
