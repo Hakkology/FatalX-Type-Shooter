@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnedWords: []
+  spawnedObjects: []
   objectPrefab: {fileID: 3830197936071275406, guid: 4ea48759d4055a090a9dccac8f97aea3, type: 3}
   spawnRate: 2
   maxObjects: 10
@@ -507,6 +508,7 @@ GameObject:
   - component: {fileID: 1355842339}
   - component: {fileID: 1355842338}
   - component: {fileID: 1355842340}
+  - component: {fileID: 1355842341}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -587,6 +589,51 @@ MonoBehaviour:
   - {fileID: -1655980854, guid: f08bd47a14ea4124c91f172d9a4796b8, type: 3}
   - {fileID: 1789257051, guid: f08bd47a14ea4124c91f172d9a4796b8, type: 3}
   - {fileID: 1031966162, guid: f08bd47a14ea4124c91f172d9a4796b8, type: 3}
+--- !u!114 &1355842341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355842337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfabd8069bdedb2a8895df022518f469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserPrefab: {fileID: 88706412192533678, guid: d7b1f98423fd6373e873b214eaf1b42e, type: 3}
+  poolSize: 10
+--- !u!1 &1510274157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1510274158}
+  m_Layer: 0
+  m_Name: LaserTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1510274158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510274157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1877890246}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1861356631
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,10 +667,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a0c06612c10c49b48b06b2b8e8e6a61c, type: 3}
   - {fileID: 21300000, guid: 8ed8893766063ff47b9efbbfed24a4c6, type: 3}
   - {fileID: 21300000, guid: 42285abc6ef7acc44b8826a086e50d63, type: 3}
-  - {fileID: 21300000, guid: 527cfe874bf4dee42a6784bdd0dbf29f, type: 3}
   - {fileID: 21300000, guid: 4e8a17370cb54014c9f4af46cf30f99d, type: 3}
   - {fileID: 21300000, guid: c9e54eb65e6884445bd7e9da0c5f66fb, type: 3}
-  - {fileID: 21300000, guid: 064993e1f3e166449994ad1866f3209c, type: 3}
   - {fileID: 21300000, guid: 2ac10b9cd8a7ade4b96311f4a6ea82ed, type: 3}
   moveSpeed: 0.4
 --- !u!4 &1861356633
@@ -672,6 +717,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 495339258}
+  - {fileID: 1510274158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &1877890247
@@ -687,6 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceObjectSpawner: {fileID: 735316433}
+  laserSpawnPoint: {fileID: 1510274158}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

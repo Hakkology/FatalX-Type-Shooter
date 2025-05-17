@@ -12,6 +12,7 @@ public class SpaceObject : MonoBehaviour
     private Canvas _canvas;
     private SpriteRenderer _spriteRenderer;
     private SpaceObjectSpawner _spawner;
+    private BoxCollider2D _collider2D;
 
     private float speed = 2;
     private int _hp;
@@ -25,9 +26,11 @@ public class SpaceObject : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _canvas = GetComponentInChildren<Canvas>();
         _wordText = GetComponentInChildren<TextMeshProUGUI>();
+        _collider2D = GetComponent<BoxCollider2D>();
 
         _canvas.renderMode = RenderMode.WorldSpace;
         _canvas.worldCamera = Camera.main;
+        _collider2D.enabled = false;
 
         // Eventlere metod bağlama
         LockedAsTargetEvent += OnLockedAsTarget;
@@ -57,7 +60,6 @@ public class SpaceObject : MonoBehaviour
     void SpaceObjectSpriteLoader()
     {
         Sprite selectedSprite = SpaceObjectHandler.Instance.GetRandomSprite(_word.Length);
-        Debug.Log("Gelen sprite:" + selectedSprite.name);
         if (selectedSprite != null)
         {
             _spriteRenderer.sprite = selectedSprite;
@@ -66,17 +68,11 @@ public class SpaceObject : MonoBehaviour
 
     public bool TakeDamage()
     {
-        if (_word.Length > 0)
+        _hp--;
+        if (_hp <= 0)
         {
-            _word = _word.Substring(1);
-            _hp--;
-            UpdateWordText();
-
-            if (_hp <= 0)
-            {
-                Destroy(gameObject);
-                return true;
-            }
+            // Destroy(gameObject);
+            return true;
         }
         return false;
     }
@@ -86,14 +82,21 @@ public class SpaceObject : MonoBehaviour
         _wordText.text = _word;
     }
 
+    public void UpdateWord()
+    {
+        _word = _word.Substring(1);
+        UpdateWordText();
+    }
+
     private void OnLockedAsTarget()
     {
+        _collider2D.enabled = true;
         _wordText.color = Color.red;
         Debug.Log("Target Locked: " + _word);
 
-        TakeDamage();
+        // TakeDamage();
     }
-    
+
     private void OnLaserHit()
     {
         bool isDead = TakeDamage();
@@ -108,7 +111,7 @@ public class SpaceObject : MonoBehaviour
 
         Destroy(gameObject);
     }
-    
+
     public void InvokeLockedAsTarget()
     {
         LockedAsTargetEvent?.Invoke();
@@ -117,5 +120,18 @@ public class SpaceObject : MonoBehaviour
     public void InvokeLaserHit()
     {
         LaserHitEvent?.Invoke();
+    }
+    
+    private void UnsubscribeEvents()
+    {
+        LockedAsTargetEvent -= OnLockedAsTarget;
+        LaserHitEvent -= OnLaserHit;
+        DestroyedEvent -= OnDestroyed;
+        Debug.Log("Events Unsubscribed");
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 }

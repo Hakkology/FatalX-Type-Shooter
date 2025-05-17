@@ -4,12 +4,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public SpaceObjectSpawner spaceObjectSpawner;
-    private SpaceObject lockedTarget;
+    public Transform laserSpawnPoint;
 
+    private SpaceObject lockedTarget;
     // State Referansları
     private IPlayerState lockState;
     private IPlayerState shootState;
     private IPlayerState currentState;
+
 
     void Start()
     {
@@ -42,7 +44,9 @@ public class PlayerController : MonoBehaviour
     public void SetLockedTarget(SpaceObject target)
     {
         lockedTarget = target;
-        SetState(shootState); 
+        target.DestroyedEvent += ClearLockedTarget;
+        Shoot();
+        SetState(shootState);
     }
 
     public SpaceObject GetLockedTarget()
@@ -52,8 +56,12 @@ public class PlayerController : MonoBehaviour
 
     public void ClearLockedTarget()
     {
-        lockedTarget = null;
-        SetState(lockState); // Hedef kaybolunca kilitlenme moduna geç
+        if (lockedTarget != null)
+        {
+            lockedTarget.DestroyedEvent -= ClearLockedTarget;  
+            lockedTarget = null;
+            SetState(lockState); 
+        }
     }
 
     public void ShootLaserAtTarget()
@@ -61,16 +69,21 @@ public class PlayerController : MonoBehaviour
         if (lockedTarget != null && !lockedTarget.Equals(null))
         {
             Debug.Log("Shooting Laser at: " + lockedTarget._word);
-            bool destroyed = lockedTarget.TakeDamage(); 
 
-            if (destroyed)
-            {
-                ClearLockedTarget();
-            }
+            Shoot();
         }
-        else
-        {
-            ClearLockedTarget();
-        }
+    }
+
+    private void Shoot()
+    {
+        Vector3 direction = lockedTarget.transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+        lockedTarget.UpdateWord();
+
+        GameObject laser = LaserPool.Instance.GetLaser();
+        var laserController = laser.GetComponent<LaserController>();
+        laserController.ActivateLaser(laserSpawnPoint.position, transform.rotation);
     }
 }
