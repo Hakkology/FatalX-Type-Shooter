@@ -92,9 +92,6 @@ public class SpaceObject : MonoBehaviour
     {
         _collider2D.enabled = true;
         _wordText.color = Color.red;
-        Debug.Log("Target Locked: " + _word);
-
-        // TakeDamage();
     }
 
     private void OnLaserHit()
