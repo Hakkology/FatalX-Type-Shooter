@@ -22,6 +22,7 @@ public class ColorManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             LoadColor();
+            Debug.Log("ColorManager yüklendi: " + CurrentColor);
         }
         else
         {

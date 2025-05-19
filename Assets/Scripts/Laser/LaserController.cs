@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal;
 
 public class LaserController : MonoBehaviour
 {
-    // public GameObject impactEffectPrefab;
+    public GameObject impactEffectPrefab;
     public Sprite redLaserSprite;
     public Sprite blueLaserSprite;
     public Sprite greenLaserSprite;
@@ -69,7 +69,11 @@ public class LaserController : MonoBehaviour
         if (collision.gameObject.CompareTag("Target"))
         {
             collision.gameObject.GetComponent<SpaceObject>().InvokeLaserHit();
-            // Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+
+            GameObject impact = VFXPool.Instance.GetImpactVFX();
+            if (impact != null)
+                impact.GetComponent<ImpactVFXController>().PlayImpactEffect(transform.position);
+            
             LaserPool.Instance.ReturnLaser(this.gameObject);
         }
     }

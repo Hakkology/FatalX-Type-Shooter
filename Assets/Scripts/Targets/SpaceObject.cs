@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,9 +14,11 @@ public class SpaceObject : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private SpaceObjectSpawner _spawner;
     private BoxCollider2D _collider2D;
+    private CameraShakeController _cameraShake;
 
     private float speed = 2;
     private int _hp;
+    private int _initialWordLength;
 
     public event Action LockedAsTargetEvent;
     public event Action LaserHitEvent;
@@ -27,6 +30,7 @@ public class SpaceObject : MonoBehaviour
         _canvas = GetComponentInChildren<Canvas>();
         _wordText = GetComponentInChildren<TextMeshProUGUI>();
         _collider2D = GetComponent<BoxCollider2D>();
+        _cameraShake = Camera.main.GetComponent<CameraShakeController>();
 
         _canvas.renderMode = RenderMode.WorldSpace;
         _canvas.worldCamera = Camera.main;
@@ -43,6 +47,7 @@ public class SpaceObject : MonoBehaviour
         _spawner = spawner;
         _word = word;
         _hp = word.Length;
+        _initialWordLength = _word.Length;
         UpdateWordText();
         SpaceObjectSpriteLoader();
     }
@@ -106,7 +111,21 @@ public class SpaceObject : MonoBehaviour
         if (_spawner != null)
             _spawner.DeSpawnObject(this._word);
 
-        Destroy(gameObject);
+        ShakeType shakeType;
+
+        if (_initialWordLength < 4)
+            shakeType = ShakeType.Tiny;
+        else if (_initialWordLength < 6)
+            shakeType = ShakeType.Small;
+        else if (_initialWordLength < 8)
+            shakeType = ShakeType.Medium;
+        else
+            shakeType = ShakeType.Huge;
+
+        _cameraShake?.Shake(shakeType);
+
+        _spriteRenderer.DOFade(0, 0.2f).OnComplete(() => Destroy(gameObject)); 
+        transform.DOScale(Vector3.zero, 0.2f);
     }
 
     public void InvokeLockedAsTarget()

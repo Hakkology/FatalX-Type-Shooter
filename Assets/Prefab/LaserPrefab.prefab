@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0a00772d001fe4fae7bca86ca6adbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactEffectPrefab: {fileID: 1413411975193520683, guid: 1345d577f313859fb9ac1aecd58528bf, type: 3}
   redLaserSprite: {fileID: 1846780564, guid: 0e7c6988b05c8294098ee7c4a6dafd19, type: 3}
   blueLaserSprite: {fileID: -301060291, guid: 0e7c6988b05c8294098ee7c4a6dafd19, type: 3}
   greenLaserSprite: {fileID: -176211792, guid: 0e7c6988b05c8294098ee7c4a6dafd19, type: 3}
