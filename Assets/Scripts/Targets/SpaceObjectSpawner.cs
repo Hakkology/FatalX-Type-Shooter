@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpaceObjectSpawner : MonoBehaviour
 {
+    public PlayerController playerController;
     public List<string> spawnedWords = new List<string>();
     public List<GameObject> spawnedObjects = new List<GameObject>();    
     private string[] words = {
@@ -66,7 +69,7 @@ public class SpaceObjectSpawner : MonoBehaviour
             Vector3 spawnPosition = GetSpawnPosition();
             GameObject spaceObject = Instantiate(objectPrefab, spawnPosition, Quaternion.identity);
             SpaceObject spaceObjectScript = spaceObject.GetComponent<SpaceObject>();
-            spaceObjectScript.Initialize(this, selectedWord);
+            spaceObjectScript.Initialize(this, selectedWord, playerController);
             spawnedWords.Add(selectedWord);
             spawnedObjects.Add(spaceObject);
 

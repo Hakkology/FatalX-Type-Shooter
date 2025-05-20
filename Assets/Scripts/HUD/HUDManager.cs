@@ -43,9 +43,14 @@ public class HUDManager : MonoBehaviour
         OnHealthChanged -= HealthChanged;
     }
 
-    public void RaiseScoreChanged(int delta)           => OnScoreChanged?.Invoke(delta);
-    public void RaiseTargetCountChanged(int count)     => OnTargetCountChanged?.Invoke(count);
-    public void RaiseHealthChanged(int currentHP)      => OnHealthChanged?.Invoke(currentHP);
+    public void RaiseScoreChanged(int currentScore) 
+        => OnScoreChanged?.Invoke(currentScore);
+
+    public void RaiseTargetCountChanged(int count) 
+        => OnTargetCountChanged?.Invoke(count);
+
+    public void RaiseHealthChanged(int currentHP) 
+        => OnHealthChanged?.Invoke(currentHP);
 
     void OnDisable()
     {

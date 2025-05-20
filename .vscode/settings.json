@@ -56,16 +56,16 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnetAcquisitionExtension.sharedExistingDotnetPath": "/usr/lib/dotnet/dotnet",
-    "dotnetAcquisitionExtension.existingDotnetPath": [
-        {
-            "extensionId": "ms-dotnettools.csharp",
-            "path": "/usr/lib/dotnet/dotnet"
-        },
-        {
-            "extensionId": "ms-dotnettools.csdevkit",
-            "path": "/usr/lib/dotnet/dotnet"
-        }
-    ],
+    // "dotnetAcquisitionExtension.sharedExistingDotnetPath": "/usr/lib/dotnet/dotnet",
+    // "dotnetAcquisitionExtension.existingDotnetPath": [
+    //     {
+    //         "extensionId": "ms-dotnettools.csharp",
+    //         "path": "/usr/lib/dotnet/dotnet"
+    //     },
+    //     {
+    //         "extensionId": "ms-dotnettools.csdevkit",
+    //         "path": "/usr/lib/dotnet/dotnet"
+    //     }
+    // ],
     "dotnet.defaultSolution": "ZType-Proto.sln"
 }

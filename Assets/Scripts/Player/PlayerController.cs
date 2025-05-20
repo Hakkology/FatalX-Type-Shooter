@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public SpaceObjectSpawner spaceObjectSpawner;
     public Transform laserSpawnPoint;
     public int startingHP = 3;
+    public PlayerHealthController HealthController;
+    public PlayerScoreController ScoreController;
 
     private SpaceObject lockedTarget;
     private Light2D shootLight;
@@ -16,16 +19,16 @@ public class PlayerController : MonoBehaviour
     private IPlayerState shootState;
     private IPlayerState currentState;
 
-    private PlayerHealthController _health;
+
 
 
     void Start()
     {
-        _health = new PlayerHealthController(startingHP);
+        HealthController = new PlayerHealthController(startingHP);
+        ScoreController = new PlayerScoreController();
 
         lockState = new PlayerLockState(this);
         shootState = new PlayerShootState(this);
-        // transform.position = new Vector2(-(Screen.width / 2) +1, 0) ;
 
         // İlk durumu ayarla
         SetState(lockState);
@@ -34,8 +37,8 @@ public class PlayerController : MonoBehaviour
         shootLight.color = GetLaserColor();
         if (shootLight != null)
         {
-            shootLight.enabled = true;  // Işık hep açık olacak, yoğunluğu kontrol edeceğiz
-            shootLight.intensity = 0;   // Başlangıçta görünmez
+            shootLight.enabled = true;  
+            shootLight.intensity = 0;   
         }
     }
 
@@ -84,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         if (lockedTarget != null && !lockedTarget.Equals(null))
         {
-            Debug.Log("Shooting Laser at: " + lockedTarget._word);
+            // Debug.Log("Shooting Laser at: " + lockedTarget._word);
             Shoot();
         }
     }
@@ -102,6 +105,7 @@ public class PlayerController : MonoBehaviour
         laserController.ActivateLaser(laserSpawnPoint.position, transform.rotation);
 
         FlashShootLight();
+        // _score.AddScore(1);
     }
     
     private void FlashShootLight()

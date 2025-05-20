@@ -15,6 +15,7 @@ public class SpaceObject : MonoBehaviour
     private SpaceObjectSpawner _spawner;
     private BoxCollider2D _collider2D;
     private CameraShakeController _cameraShake;
+    private PlayerController _player;
 
     private float speed = 2;
     private int _hp;
@@ -44,9 +45,10 @@ public class SpaceObject : MonoBehaviour
         MissedEvent += OnMissed;
     }
 
-    public void Initialize(SpaceObjectSpawner spawner, string word)
+    public void Initialize(SpaceObjectSpawner spawner, string word, PlayerController player)
     {
         _spawner = spawner;
+        _player = player;
         _word = word;
         _hp = word.Length;
         _initialWord = _word;
@@ -113,6 +115,7 @@ public class SpaceObject : MonoBehaviour
         if (_spawner != null)
             _spawner.DeSpawnObject(this._initialWord, gameObject);
 
+        _player.ScoreController.AddScore(_initialWord.Length);
         GameObject explosionVFX = VFXPool.Instance.GetExplosionVFX();
         if (explosionVFX != null)
         {
@@ -141,6 +144,7 @@ public class SpaceObject : MonoBehaviour
         if (_spawner != null)
             _spawner.DeSpawnObject(this._initialWord, gameObject);
 
+        _player.HealthController.TakeDamage(1);
         _spriteRenderer.DOFade(0, 0.2f).OnComplete(() => Destroy(gameObject)); 
         transform.DOScale(Vector3.zero, 0.2f);
     }
