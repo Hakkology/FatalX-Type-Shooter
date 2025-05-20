@@ -51,7 +51,7 @@ public class LaserController : MonoBehaviour
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
 
-        if (Mathf.Abs(transform.position.x) > 20 || Mathf.Abs(transform.position.y) > 20)
+        if (Mathf.Abs(transform.position.x) > 50 || Mathf.Abs(transform.position.y) > 20)
         {
             LaserPool.Instance.ReturnLaser(gameObject);
         }
