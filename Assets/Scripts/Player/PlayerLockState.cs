@@ -14,7 +14,7 @@ public class PlayerLockState : IPlayerState
     {
         if (Input.anyKeyDown)
         {
-            string key = Input.inputString.ToLower();
+            string key = Input.inputString.ToUpper(); 
             if (!string.IsNullOrEmpty(key))
             {
                 // Hedefi bul ve kilitle
@@ -33,19 +33,17 @@ public class PlayerLockState : IPlayerState
         }
     }
 
-    // Harfe göre hedef bulma işlemi
+    // Harfe göre hedef bulma işlemi (büyük harfe göre eşleştirme)
     private SpaceObject FindTargetByLetter(char letter)
     {
-        // Uzay nesneleri arasında geçerli olanları bul
         foreach (var spaceObject in player.spaceObjectSpawner.spawnedObjects.ToList())
         {
             if (spaceObject == null || spaceObject.Equals(null))
-            {
-                continue; // Geçersiz objeyi atla
-            }
+                continue;
 
             SpaceObject spaceObj = spaceObject.GetComponent<SpaceObject>();
-            if (spaceObj != null && spaceObj._word.Length > 0 && spaceObj._word[0] == letter)
+            if (spaceObj != null && spaceObj._word.Length > 0 &&
+                char.ToUpper(spaceObj._word[0]) == letter) 
             {
                 return spaceObj;
             }

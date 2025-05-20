@@ -11,30 +11,30 @@ public class SpaceObjectSpawner : MonoBehaviour
     public List<string> spawnedWords = new List<string>();
     public List<GameObject> spawnedObjects = new List<GameObject>();    
     private string[] words = {
-        "apple", "orange", "banana", "cherry", "peach", "melon", "grape", "kiwi", "mango", "lemon",
-        "strawberry", "blueberry", "raspberry", "watermelon", "pineapple", "coconut", "papaya", "plum", "pear", "tomato",
-        "cucumber", "carrot", "onion", "garlic", "pepper", "potato", "broccoli", "spinach", "lettuce", "cabbage",
-        "zucchini", "pumpkin", "eggplant", "radish", "celery", "asparagus", "mushroom", "beetroot", "corn", "rice",
-        "pasta", "bread", "butter", "cheese", "milk", "yogurt", "cream", "cereal", "oats", "chicken",
-        "beef", "pork", "lamb", "fish", "shrimp", "crab", "lobster", "mussel", "oyster", "salmon",
-        "tuna", "trout", "cod", "mackerel", "sardine", "anchovy", "swordfish", "squid", "octopus", "coffee",
-        "tea", "juice", "soda", "water", "lemonade", "cola", "beer", "wine", "whisky", "gin",
-        "vodka", "rum", "tequila", "cider", "brandy", "bourbon", "sake", "absinthe", "vermouth", "cake",
-        "pie", "cookie", "brownie", "muffin", "croissant", "doughnut", "biscuit", "waffle", "pancake", "soup",
-        "salad", "sandwich", "burger", "pizza", "taco", "burrito", "kebab", "sushi", "ramen", "noodle",
-        "dumpling", "curry", "stew", "chili", "barbecue", "roast", "grill", "fry", "bake", "chocolate",
-        "candy", "gum", "toffee", "caramel", "fudge", "jelly", "marshmallow", "licorice", "lollipop", "rose",
-        "lily", "tulip", "daisy", "orchid", "sunflower", "violet", "jasmine", "daffodil", "lavender", "ocean",
-        "river", "lake", "stream", "waterfall", "pond", "sea", "bay", "lagoon", "creek", "mountain",
-        "hill", "valley", "canyon", "plateau", "plain", "forest", "jungle", "desert", "savanna", "car",
-        "bike", "bus", "train", "tram", "plane", "boat", "ship", "ferry", "yacht", "pencil",
-        "pen", "eraser", "ruler", "compass", "brush", "paint", "paper", "notebook", "folder", "computer",
-        "laptop", "tablet", "phone", "monitor", "keyboard", "mouse", "printer", "scanner", "camera", "rocket",
-        "satellite", "planet", "star", "comet", "meteor", "asteroid", "galaxy", "nebula", "orbit", "dog",
-        "cat", "bird", "fish", "horse", "cow", "pig", "sheep", "goat", "rabbit", "lion",
-        "tiger", "bear", "wolf", "elephant", "giraffe", "zebra", "kangaroo", "panda", "fox", "book",
-        "magazine", "newspaper", "novel", "comic", "diary", "guide", "atlas", "map", "dictionary", "rock",
-        "paper", "scissors", "hammer", "saw", "drill", "wrench", "screwdriver", "pliers", "tape"
+        "APPLE", "ORANGE", "BANANA", "CHERRY", "PEACH", "MELON", "GRAPE", "KIWI", "MANGO", "LEMON",
+        "STRAWBERRY", "BLUEBERRY", "RASPBERRY", "WATERMELON", "PINEAPPLE", "COCONUT", "PAPAYA", "PLUM", "PEAR", "TOMATO",
+        "CUCUMBER", "CARROT", "ONION", "GARLIC", "PEPPER", "POTATO", "BROCCOLI", "SPINACH", "LETTUCE", "CABBAGE",
+        "ZUCCHINI", "PUMPKIN", "EGGPLANT", "RADISH", "CELERY", "ASPARAGUS", "MUSHROOM", "BEETROOT", "CORN", "RICE",
+        "PASTA", "BREAD", "BUTTER", "CHEESE", "MILK", "YOGURT", "CREAM", "CEREAL", "OATS", "CHICKEN",
+        "BEEF", "PORK", "LAMB", "FISH", "SHRIMP", "CRAB", "LOBSTER", "MUSSEL", "OYSTER", "SALMON",
+        "TUNA", "TROUT", "COD", "MACKEREL", "SARDINE", "ANCHOVY", "SWORDFISH", "SQUID", "OCTOPUS", "COFFEE",
+        "TEA", "JUICE", "SODA", "WATER", "LEMONADE", "COLA", "BEER", "WINE", "WHISKY", "GIN",
+        "VODKA", "RUM", "TEQUILA", "CIDER", "BRANDY", "BOURBON", "SAKE", "ABSINTHE", "VERMOUTH", "CAKE",
+        "PIE", "COOKIE", "BROWNIE", "MUFFIN", "CROISSANT", "DOUGHNUT", "BISCUIT", "WAFFLE", "PANCAKE", "SOUP",
+        "SALAD", "SANDWICH", "BURGER", "PIZZA", "TACO", "BURRITO", "KEBAB", "SUSHI", "RAMEN", "NOODLE",
+        "DUMPLING", "CURRY", "STEW", "CHILI", "BARBECUE", "ROAST", "GRILL", "FRY", "BAKE", "CHOCOLATE",
+        "CANDY", "GUM", "TOFFEE", "CARAMEL", "FUDGE", "JELLY", "MARSHMALLOW", "LICORICE", "LOLLIPOP", "ROSE",
+        "LILY", "TULIP", "DAISY", "ORCHID", "SUNFLOWER", "VIOLET", "JASMINE", "DAFFODIL", "LAVENDER", "OCEAN",
+        "RIVER", "LAKE", "STREAM", "WATERFALL", "POND", "SEA", "BAY", "LAGOON", "CREEK", "MOUNTAIN",
+        "HILL", "VALLEY", "CANYON", "PLATEAU", "PLAIN", "FOREST", "JUNGLE", "DESERT", "SAVANNA", "CAR",
+        "BIKE", "BUS", "TRAIN", "TRAM", "PLANE", "BOAT", "SHIP", "FERRY", "YACHT", "PENCIL",
+        "PEN", "ERASER", "RULER", "COMPASS", "BRUSH", "PAINT", "PAPER", "NOTEBOOK", "FOLDER", "COMPUTER",
+        "LAPTOP", "TABLET", "PHONE", "MONITOR", "KEYBOARD", "MOUSE", "PRINTER", "SCANNER", "CAMERA", "ROCKET",
+        "SATELLITE", "PLANET", "STAR", "COMET", "METEOR", "ASTEROID", "GALAXY", "NEBULA", "ORBIT", "DOG",
+        "CAT", "BIRD", "FISH", "HORSE", "COW", "PIG", "SHEEP", "GOAT", "RABBIT", "LION",
+        "TIGER", "BEAR", "WOLF", "ELEPHANT", "GIRAFFE", "ZEBRA", "KANGAROO", "PANDA", "FOX", "BOOK",
+        "MAGAZINE", "NEWSPAPER", "NOVEL", "COMIC", "DIARY", "GUIDE", "ATLAS", "MAP", "DICTIONARY", "ROCK",
+        "PAPER", "SCISSORS", "HAMMER", "SAW", "DRILL", "WRENCH", "SCREWDRIVER", "PLIERS", "TAPE"
     };
 
     public GameObject objectPrefab;
@@ -43,6 +43,7 @@ public class SpaceObjectSpawner : MonoBehaviour
 
     void Start()
     {
+        HUDManager.Instance.RaiseTargetCountChanged(spawnedWords.Count);
         StartCoroutine(nameof(SpawnObject));
     }
 
@@ -73,6 +74,8 @@ public class SpaceObjectSpawner : MonoBehaviour
             spawnedWords.Add(selectedWord);
             spawnedObjects.Add(spaceObject);
 
+            HUDManager.Instance.RaiseTargetCountChanged(spawnedWords.Count);
+
             yield return new WaitForSecondsRealtime(spawnRate);
         }
     }
@@ -82,18 +85,29 @@ public class SpaceObjectSpawner : MonoBehaviour
         Debug.Log("This word is despawned: " + word);
         spawnedWords.Remove(word);
         spawnedObjects.Remove(spaceObject);
+        HUDManager.Instance.RaiseTargetCountChanged(spawnedWords.Count);
     }
 
     private Vector3 GetSpawnPosition()
     {
         float offset = 2f; 
-        float xPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, Camera.main.nearClipPlane)).x + offset;
+        float xPosition = Camera.main.ScreenToWorldPoint(
+            new Vector3(Screen.width, 0, Camera.main.nearClipPlane)
+        ).x + offset;
 
-        float yMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane)).y;
-        float yMax = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, Camera.main.nearClipPlane)).y;
+        // 2 px offset uygulanmış yMin ve yMax
+        float yMin = Camera.main.ScreenToWorldPoint(
+            new Vector3(0, 2, Camera.main.nearClipPlane)
+        ).y;
+        
+        float yMax = Camera.main.ScreenToWorldPoint(
+            new Vector3(0, Screen.height - 2, Camera.main.nearClipPlane)
+        ).y;
+
         float yPosition = Random.Range(yMin, yMax);
 
         return new Vector3(xPosition, yPosition, 0);
     }
+
 
 }

@@ -11,7 +11,10 @@ public class PlayerShootState : IPlayerState
 
     public void UpdateState()
     {
-        if (player.GetLockedTarget() == null)
+        SpaceObject target = player.GetLockedTarget();
+
+        // Eğer hedef null veya kelime bitti ise temizle
+        if (target == null || target._word.Length == 0)
         {
             player.ClearLockedTarget();
             return;
@@ -19,12 +22,10 @@ public class PlayerShootState : IPlayerState
 
         if (Input.anyKeyDown)
         {
-            string key = Input.inputString.ToLower();
+            string key = Input.inputString.ToUpper();
             if (!string.IsNullOrEmpty(key))
             {
-                SpaceObject target = player.GetLockedTarget();
-
-                if (target._word.Length > 0 && key[0] == target._word[0])
+                if (key[0] == target._word[0])
                 {
                     player.ShootLaserAtTarget();
                 }
@@ -35,4 +36,5 @@ public class PlayerShootState : IPlayerState
             }
         }
     }
+
 }

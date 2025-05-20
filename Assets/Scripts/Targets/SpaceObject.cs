@@ -20,11 +20,11 @@ public class SpaceObject : MonoBehaviour
     private float speed = 2;
     private int _hp;
     private string _initialWord;
+    private bool _missedObject = false;
 
     public event Action LockedAsTargetEvent;
     public event Action LaserHitEvent;
     public event Action DestroyedEvent;
-    public event Action MissedEvent;
 
     void Awake()
     {
@@ -38,11 +38,9 @@ public class SpaceObject : MonoBehaviour
         _canvas.worldCamera = Camera.main;
         _collider2D.enabled = false;
 
-        // Eventlere metod bağlama
         LockedAsTargetEvent += OnLockedAsTarget;
         LaserHitEvent += OnLaserHit;
         DestroyedEvent += OnDestroyed;
-        MissedEvent += OnMissed;
     }
 
     public void Initialize(SpaceObjectSpawner spawner, string word, PlayerController player)
@@ -60,7 +58,7 @@ public class SpaceObject : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
-        if (transform.position.x < -10)
+        if (transform.position.x < -10 && !_missedObject)
         {
             OnMissed();
         }
@@ -141,6 +139,8 @@ public class SpaceObject : MonoBehaviour
 
     private void OnMissed()
     {
+        _missedObject = true;
+        
         if (_spawner != null)
             _spawner.DeSpawnObject(this._initialWord, gameObject);
 
@@ -164,8 +164,7 @@ public class SpaceObject : MonoBehaviour
         LockedAsTargetEvent -= OnLockedAsTarget;
         LaserHitEvent -= OnLaserHit;
         DestroyedEvent -= OnDestroyed;
-        MissedEvent -= OnMissed;
-        Debug.Log("Events Unsubscribed");
+        // Debug.Log("Events Unsubscribed");
     }
 
     private void OnDestroy()
