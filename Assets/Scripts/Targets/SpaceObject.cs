@@ -111,6 +111,12 @@ public class SpaceObject : MonoBehaviour
         if (_spawner != null)
             _spawner.DeSpawnObject(this._word);
 
+        GameObject explosionVFX = VFXPool.Instance.GetExplosionVFX();
+        if (explosionVFX != null)
+        {
+            explosionVFX.GetComponent<VFXExplosionController>().PlayExplosionEffect(transform.position);
+        }
+
         ShakeType shakeType;
 
         if (_initialWordLength < 4)

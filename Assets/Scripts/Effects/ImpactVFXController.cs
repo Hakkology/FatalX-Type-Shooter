@@ -27,6 +27,7 @@ public class ImpactVFXController : MonoBehaviour
         // Işığı aktif hale getir
         if (impactLight != null)
         {
+            impactLight.color = impactColor;
             impactLight.enabled = true;
             impactLight.intensity = 0;
         }
@@ -61,9 +62,7 @@ public class ImpactVFXController : MonoBehaviour
     {
         if (impactLight != null)
         {
-            impactLight.DOKill(); // Önceki animasyonu iptal et
-
-            // Işığı hızlıca aç ve yavaşça kapat
+            impactLight.DOKill(); 
             DOTween.To(() => impactLight.intensity, x => impactLight.intensity = x, 5, 0.05f).OnComplete(() =>
             {
                 DOTween.To(() => impactLight.intensity, x => impactLight.intensity = x, 0, 0.2f);
