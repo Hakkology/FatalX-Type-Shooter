@@ -23,6 +23,7 @@ public class SpaceObject : MonoBehaviour
     public event Action LockedAsTargetEvent;
     public event Action LaserHitEvent;
     public event Action DestroyedEvent;
+    public event Action MissedEvent;
 
     void Awake()
     {
@@ -40,6 +41,7 @@ public class SpaceObject : MonoBehaviour
         LockedAsTargetEvent += OnLockedAsTarget;
         LaserHitEvent += OnLaserHit;
         DestroyedEvent += OnDestroyed;
+        MissedEvent += OnMissed;
     }
 
     public void Initialize(SpaceObjectSpawner spawner, string word)
@@ -58,7 +60,7 @@ public class SpaceObject : MonoBehaviour
         transform.Translate(Vector3.left * speed * Time.deltaTime);
         if (transform.position.x < -10)
         {
-            Destroy(gameObject);
+            OnMissed();
         }
     }
 
@@ -134,6 +136,15 @@ public class SpaceObject : MonoBehaviour
         transform.DOScale(Vector3.zero, 0.2f);
     }
 
+    private void OnMissed()
+    {
+        if (_spawner != null)
+            _spawner.DeSpawnObject(this._initialWord, gameObject);
+
+        _spriteRenderer.DOFade(0, 0.2f).OnComplete(() => Destroy(gameObject)); 
+        transform.DOScale(Vector3.zero, 0.2f);
+    }
+
     public void InvokeLockedAsTarget()
     {
         LockedAsTargetEvent?.Invoke();
@@ -149,6 +160,7 @@ public class SpaceObject : MonoBehaviour
         LockedAsTargetEvent -= OnLockedAsTarget;
         LaserHitEvent -= OnLaserHit;
         DestroyedEvent -= OnDestroyed;
+        MissedEvent -= OnMissed;
         Debug.Log("Events Unsubscribed");
     }
 

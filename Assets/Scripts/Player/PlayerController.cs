@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public SpaceObjectSpawner spaceObjectSpawner;
     public Transform laserSpawnPoint;
+    public int startingHP = 3;
 
     private SpaceObject lockedTarget;
     private Light2D shootLight;
@@ -15,9 +16,13 @@ public class PlayerController : MonoBehaviour
     private IPlayerState shootState;
     private IPlayerState currentState;
 
+    private PlayerHealthController _health;
+
 
     void Start()
     {
+        _health = new PlayerHealthController(startingHP);
+
         lockState = new PlayerLockState(this);
         shootState = new PlayerShootState(this);
         // transform.position = new Vector2(-(Screen.width / 2) +1, 0) ;
@@ -80,7 +85,6 @@ public class PlayerController : MonoBehaviour
         if (lockedTarget != null && !lockedTarget.Equals(null))
         {
             Debug.Log("Shooting Laser at: " + lockedTarget._word);
-
             Shoot();
         }
     }

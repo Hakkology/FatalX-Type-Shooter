@@ -64,9 +64,9 @@ public class VFXExplosionController : MonoBehaviour
         {
             explosionLight.DOKill(); 
 
-            DOTween.To(() => explosionLight.intensity, x => explosionLight.intensity = x, 2, 0.03f).OnComplete(() =>
+            DOTween.To(() => explosionLight.intensity, x => explosionLight.intensity = x, 3, 0.05f).OnComplete(() =>
             {
-                DOTween.To(() => explosionLight.intensity, x => explosionLight.intensity = x, 0, 0.1f);
+                DOTween.To(() => explosionLight.intensity, x => explosionLight.intensity = x, 0, 0.2f);
             });
         }
     }
