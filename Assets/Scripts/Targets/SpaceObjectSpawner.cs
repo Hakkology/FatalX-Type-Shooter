@@ -74,9 +74,11 @@ public class SpaceObjectSpawner : MonoBehaviour
         }
     }
 
-    public void DeSpawnObject(string word)
+    public void DeSpawnObject(string word, GameObject spaceObject)
     {
+        Debug.Log("This word is despawned: " + word);
         spawnedWords.Remove(word);
+        spawnedObjects.Remove(spaceObject);
     }
 
     private Vector3 GetSpawnPosition()

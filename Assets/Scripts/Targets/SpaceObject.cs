@@ -18,7 +18,7 @@ public class SpaceObject : MonoBehaviour
 
     private float speed = 2;
     private int _hp;
-    private int _initialWordLength;
+    private string _initialWord;
 
     public event Action LockedAsTargetEvent;
     public event Action LaserHitEvent;
@@ -47,7 +47,7 @@ public class SpaceObject : MonoBehaviour
         _spawner = spawner;
         _word = word;
         _hp = word.Length;
-        _initialWordLength = _word.Length;
+        _initialWord = _word;
         UpdateWordText();
         SpaceObjectSpriteLoader();
     }
@@ -109,7 +109,7 @@ public class SpaceObject : MonoBehaviour
     private void OnDestroyed()
     {
         if (_spawner != null)
-            _spawner.DeSpawnObject(this._word);
+            _spawner.DeSpawnObject(this._initialWord, gameObject);
 
         GameObject explosionVFX = VFXPool.Instance.GetExplosionVFX();
         if (explosionVFX != null)
@@ -119,11 +119,11 @@ public class SpaceObject : MonoBehaviour
 
         ShakeType shakeType;
 
-        if (_initialWordLength < 4)
+        if (_initialWord.Length < 4)
             shakeType = ShakeType.Tiny;
-        else if (_initialWordLength < 6)
+        else if (_initialWord.Length < 6)
             shakeType = ShakeType.Small;
-        else if (_initialWordLength < 8)
+        else if (_initialWord.Length < 8)
             shakeType = ShakeType.Medium;
         else
             shakeType = ShakeType.Huge;
