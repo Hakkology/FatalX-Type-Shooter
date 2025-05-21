@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be7620969ed560c6b0bf3b4b6bacdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 0}
+  mainMixer: {fileID: 24100000, guid: 0acea7f0b37b86a7b9afed3695f76fc0, type: 2}
   masterVolumeParam: MasterVolume
   musicVolumeParam: MusicVolume
   soundVolumeParam: SoundVolume
