@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         target.DestroyedEvent += ClearLockedTarget;
         Shoot();
         SetState(shootState);
+        HUDManager.Instance.ShowCrosshair(lockedTarget.transform);
     }
 
     public SpaceObject GetLockedTarget()
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
             lockedTarget.DestroyedEvent -= ClearLockedTarget;
             lockedTarget = null;
             SetState(lockState);
+            HUDManager.Instance.HideCrosshair();
         }
     }
 

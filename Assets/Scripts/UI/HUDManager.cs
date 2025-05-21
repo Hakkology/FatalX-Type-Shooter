@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,11 +11,21 @@ public class HUDManager : MonoBehaviour
     public event Action<int> OnScoreChanged;
     public event Action<int> OnHealthChanged;
 
+    [Header("Text References")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI targetCountText;
 
-    [Header("HP Icons (assign 3 icons here)")] 
-    public Image[] hpIcons;  
+    [Header("Health References")]
+    public Image[] hpIcons;
+
+
+    [Header("Crosshair References")]
+    public CanvasGroup crosshairCanvasGroup;
+    public RectTransform crosshairRectTransform;
+
+    private Vector3 hiddenScale = Vector3.zero;
+    private Vector3 visibleScale = Vector3.one * 0.8f;
+    private Transform currentTarget;
 
     private void Awake()
     {
@@ -22,6 +33,27 @@ public class HUDManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        crosshairCanvasGroup.alpha = 0f;
+        crosshairRectTransform.localScale = hiddenScale;
+    }
+
+    
+    private void Update()
+    {
+        if (currentTarget != null)
+        {
+            Vector2 screenPt = Camera.main.WorldToScreenPoint(currentTarget.position);
+            RectTransform parentRT = crosshairRectTransform.parent as RectTransform;
+            Vector2 anchoredPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRT, screenPt, null, out anchoredPos);
+
+            crosshairRectTransform
+                .DOAnchorPos(anchoredPos, 0.1f)
+                .SetEase(Ease.OutQuad)
+                .SetUpdate(true);
+        }
     }
 
     void Start()
@@ -43,13 +75,13 @@ public class HUDManager : MonoBehaviour
         OnHealthChanged -= HealthChanged;
     }
 
-    public void RaiseScoreChanged(int currentScore) 
+    public void RaiseScoreChanged(int currentScore)
         => OnScoreChanged?.Invoke(currentScore);
 
-    public void RaiseTargetCountChanged(int count) 
+    public void RaiseTargetCountChanged(int count)
         => OnTargetCountChanged?.Invoke(count);
 
-    public void RaiseHealthChanged(int currentHP) 
+    public void RaiseHealthChanged(int currentHP)
         => OnHealthChanged?.Invoke(currentHP);
 
     void OnDisable()
@@ -72,5 +104,35 @@ public class HUDManager : MonoBehaviour
         {
             hpIcons[i].gameObject.SetActive(i < remainingHealth);
         }
+    }
+    
+    public void ShowCrosshair(Transform target)
+    {
+        currentTarget = target;
+
+        // Mevcut tweenleri temizle
+        crosshairCanvasGroup.DOKill();
+        crosshairRectTransform.DOKill();
+
+        // Fade-in + scale-in
+        crosshairCanvasGroup.DOFade(1f, 0.15f);
+        crosshairRectTransform
+            .DOScale(visibleScale, 0.2f)
+            .SetEase(Ease.OutBack);
+    }
+
+    public void HideCrosshair()
+    {
+        currentTarget = null;
+
+        crosshairCanvasGroup.DOKill();
+        crosshairRectTransform.DOKill();
+
+        crosshairCanvasGroup
+            .DOFade(0f, 0.1f)
+            .OnComplete(() =>
+            {
+                crosshairRectTransform.localScale = hiddenScale;
+            });
     }
 }
