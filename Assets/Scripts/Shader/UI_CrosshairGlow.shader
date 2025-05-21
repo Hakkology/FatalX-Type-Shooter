@@ -2,11 +2,12 @@ Shader "UI/CrosshairGlow"
 {
     Properties
     {
-        _Color      ("Color",           Color) = (1,1,1,1)
-        _Thickness  ("Line Thickness",  Float) = 0.02
-        _Glow       ("Glow Softness",   Float) = 0.03
-        _Speed      ("Rotate Speed",    Float) = 1.0
-        _Scale      ("Overall Scale",   Float) = 1.0
+        _Color           ("Color",           Color) = (1,1,1,1)
+        _Thickness       ("Line Thickness",  Float) = 0.02
+        _Glow            ("Glow Softness",   Float) = 0.03
+        _Speed           ("Rotate Speed",    Float) = 1.0
+        _Scale           ("Overall Scale",   Float) = 1.0
+        _CircleRadius    ("Circle Radius",   Float) = 0.5
     }
     SubShader
     {
@@ -34,6 +35,7 @@ Shader "UI/CrosshairGlow"
             float _Glow;
             float _Speed;
             float _Scale;
+            float _CircleRadius;
 
             struct appdata_t
             {
@@ -54,7 +56,7 @@ Shader "UI/CrosshairGlow"
                 v2f OUT;
                 OUT.vertex = UnityObjectToClipPos(IN.vertex);
                 OUT.color  = IN.color * _Color;
-                // UV’yi -1..+1 aralığına:
+                // UV'yi -1..+1 aralığına:
                 OUT.uv = (IN.uv * 2.0 - 1.0) * _Scale;
                 return OUT;
             }
@@ -75,13 +77,20 @@ Shader "UI/CrosshairGlow"
                 float maskY = smoothstep(_Thickness, _Thickness * 0.5, abs(ruv.y));
                 float lineMask = saturate(maskX + maskY);
 
-                // Glow mask
+                // Line glow
                 float glowX = smoothstep(_Thickness + _Glow, _Thickness, abs(ruv.x));
                 float glowY = smoothstep(_Thickness + _Glow, _Thickness, abs(ruv.y));
                 float glowMask = saturate(glowX + glowY) * 0.5;
 
-                // Final alpha
-                float alpha = saturate(lineMask + glowMask) * IN.color.a;
+                // Circle mask
+                float radial = length(ruv);
+                float ringDist = abs(radial - _CircleRadius);
+                float maskC = smoothstep(_Thickness, _Thickness * 0.5, ringDist);
+                float glowC = smoothstep(_Thickness + _Glow, _Thickness, ringDist) * 0.5;
+                float circleMask = saturate(maskC + glowC);
+
+                // Final alpha combines lines + circle
+                float alpha = saturate(lineMask + glowMask + circleMask) * IN.color.a;
                 return fixed4(IN.color.rgb, alpha);
             }
             ENDCG
