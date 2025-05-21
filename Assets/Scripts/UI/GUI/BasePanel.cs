@@ -8,6 +8,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
 
     [SerializeField] protected float transitionDuration = 0.25f;
     [SerializeField] protected Ease transitionEase = Ease.OutCubic;
+    public bool IsOpen;
 
     protected virtual void Awake()
     {
@@ -22,6 +23,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
     public virtual void OpenPanel()
     {
         currentTween?.Kill();
+        IsOpen = true;
         gameObject.SetActive(true);
         currentTween = canvasGroup.DOFade(1f, transitionDuration)
             .SetEase(transitionEase)
@@ -35,6 +37,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
     public virtual void ClosePanel()
     {
         currentTween?.Kill();
+        IsOpen = false;
         currentTween = canvasGroup.DOFade(0f, transitionDuration)
             .SetEase(transitionEase)
             .OnComplete(() =>

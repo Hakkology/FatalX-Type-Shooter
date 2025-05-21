@@ -6,15 +6,14 @@ public class SettingsBasePanel : BasePanel
 {
     [Header("UI Elements")]
     [SerializeField] private TMP_Dropdown languageDropdown;
-    [SerializeField] private Toggle vibrationToggle;
+    // [SerializeField] private Toggle vibrationToggle;
     [SerializeField] private Toggle muteToggle;
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider soundVolumeSlider;
 
-    protected override void Awake()
+    void Start()
     {
-        base.Awake();
         SetupUI();
     }
 
@@ -25,8 +24,8 @@ public class SettingsBasePanel : BasePanel
         languageDropdown.value = (int)GameSettings.Instance.currentLanguage;
 
         // Titreşim
-        vibrationToggle.onValueChanged.AddListener(OnVibrationToggled);
-        vibrationToggle.isOn = GameSettings.Instance.vibrationEnabled;
+        // vibrationToggle.onValueChanged.AddListener(OnVibrationToggled);
+        // vibrationToggle.isOn = GameSettings.Instance.vibrationEnabled;
 
         // Mute
         muteToggle.onValueChanged.AddListener(OnMuteToggled);
