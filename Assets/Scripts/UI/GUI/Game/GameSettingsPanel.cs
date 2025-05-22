@@ -7,7 +7,7 @@ public class GameSettingsPanel : SettingsBasePanel
 {
     [Header("Color Toggles")]
     [SerializeField] private Toggle[] colorToggles;
-    [SerializeField] private Image[] frameImages;  
+    [SerializeField] private Image[] frameImages;
     [SerializeField] private TextMeshProUGUI currentThemeText;
 
     [Space]
@@ -65,5 +65,10 @@ public class GameSettingsPanel : SettingsBasePanel
         }
 
         lastSelected = idx;
+    }
+    
+    public void OnBackButtonClicked()
+    {
+        GameGUIManager.Instance.OpenMenu();
     }
 }

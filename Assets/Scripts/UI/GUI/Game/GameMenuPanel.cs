@@ -4,7 +4,7 @@ public class GameMenuPanel : BasePanel
 {
     public void OnContinueClicked()
     {
-        ClosePanel();
+        HidePanel();
     }
 
     public void OnSettingsClicked()
@@ -12,8 +12,13 @@ public class GameMenuPanel : BasePanel
         GameGUIManager.Instance.OpenSettings();
     }
 
-    public void OnExitClicked()
+    public void OnExitMenuClicked()
     {
         GameGUIManager.Instance.ReturnToMainMenu();
+    }
+
+    public void OnExitGameClicked()
+    {
+        Application.Quit();
     }
 }

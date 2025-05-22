@@ -1,24 +1,50 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameGUIManager : MonoBehaviour
 {
-    public static GameGUIManager Instance;
 
-    [SerializeField] private BasePanel menuPanel;
-    [SerializeField] private SettingsBasePanel settingsPanel;
-    [SerializeField] private BasePanel gameEndPanel;
+    public static GameGUIManager Instance { get; set; }
+    public BasePanel menuPanel;
+    public BasePanel settingsPanel;
+    public BasePanel gameEndPanel;
 
     void Awake()
     {
-        Instance = this;
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
+    }
+
+    void Start() {
+        HideAllPanels();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (menuPanel.IsOpen)
+            {
+                menuPanel.HidePanel();
+            }
+            else if (settingsPanel.IsOpen)
+            {
+                settingsPanel.HidePanel();
+            }
+            OpenMenu();
+        }
     }
 
     public void ToggleMenu()
     {
-        if (menuPanel.gameObject.activeSelf)
-            menuPanel.ClosePanel();
-        else
-            menuPanel.OpenPanel();
+
     }
 
     public void OpenSettings()
@@ -40,13 +66,18 @@ public class GameGUIManager : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        // Örneğin sahne yükleme: SceneManager.LoadScene("MainMenu");
-        Debug.Log("Returning to main menu...");
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void HideAllPanels()
+    {
+        menuPanel.HidePanel();
+        settingsPanel.HidePanel();
+        gameEndPanel.HidePanel();
     }
 
     public void RestartGame()
     {
-        // Örneğin sahne reload: SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log("Restarting game...");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
