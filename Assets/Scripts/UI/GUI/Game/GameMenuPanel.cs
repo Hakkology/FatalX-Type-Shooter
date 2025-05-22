@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MenuPanel : BasePanel
+public class GameMenuPanel : BasePanel
 {
     public void OnContinueClicked()
     {
@@ -9,11 +9,11 @@ public class MenuPanel : BasePanel
 
     public void OnSettingsClicked()
     {
-        GUIManager.Instance.OpenSettings();
+        GameGUIManager.Instance.OpenSettings();
     }
 
     public void OnExitClicked()
     {
-        GUIManager.Instance.ReturnToMainMenu();
+        GameGUIManager.Instance.ReturnToMainMenu();
     }
 }

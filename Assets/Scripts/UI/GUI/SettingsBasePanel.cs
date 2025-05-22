@@ -17,7 +17,7 @@ public class SettingsBasePanel : BasePanel
         SetupUI();
     }
 
-    private void SetupUI()
+    protected virtual void SetupUI()
     {
         // Dropdown - Dil Seçimi
         languageDropdown.onValueChanged.AddListener(OnLanguageChanged);

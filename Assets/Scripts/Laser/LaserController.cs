@@ -26,19 +26,19 @@ public class LaserController : MonoBehaviour
 
         switch (ColorManager.Instance.CurrentColor)
         {
-            case ColorManager.ShipColor.Red:
+            case ThemeColor.Red:
                 _spriteRenderer.sprite = redLaserSprite;
                 _light2D.color = Color.red;
                 break;
-            case ColorManager.ShipColor.Blue:
+            case ThemeColor.Blue:
                 _spriteRenderer.sprite = blueLaserSprite;
                 _light2D.color = Color.blue;
                 break;
-            case ColorManager.ShipColor.Green:
+            case ThemeColor.Green:
                 _spriteRenderer.sprite = greenLaserSprite;
                 _light2D.color = Color.green;
                 break;
-            case ColorManager.ShipColor.Yellow:
+            case ThemeColor.Yellow:
                 _spriteRenderer.sprite = yellowLaserSprite;
                 _light2D.color = Color.yellow;
                 break;

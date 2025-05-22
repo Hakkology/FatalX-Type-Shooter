@@ -74,13 +74,13 @@ public class ImpactVFXController : MonoBehaviour
     {
         switch (ColorManager.Instance.CurrentColor)
         {
-            case ColorManager.ShipColor.Red:
+            case ThemeColor.Red:
                 return Color.red;
-            case ColorManager.ShipColor.Blue:
+            case ThemeColor.Blue:
                 return Color.blue;
-            case ColorManager.ShipColor.Green:
+            case ThemeColor.Green:
                 return Color.green;
-            case ColorManager.ShipColor.Yellow:
+            case ThemeColor.Yellow:
                 return Color.yellow;
             default:
                 return Color.white;

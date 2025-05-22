@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class GUIManager : MonoBehaviour
+public class GameGUIManager : MonoBehaviour
 {
-    public static GUIManager Instance;
+    public static GameGUIManager Instance;
 
-    [SerializeField] private MenuPanel menuPanel;
-    [SerializeField] private SettingsPanel settingsPanel;
-    [SerializeField] private GameEndPanel gameEndPanel;
+    [SerializeField] private BasePanel menuPanel;
+    [SerializeField] private SettingsBasePanel settingsPanel;
+    [SerializeField] private BasePanel gameEndPanel;
 
     void Awake()
     {

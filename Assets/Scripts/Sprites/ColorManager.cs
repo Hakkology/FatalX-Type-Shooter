@@ -1,19 +1,21 @@
 using UnityEngine;
 
-public class ColorManager : MonoBehaviour
-{
-    public static ColorManager Instance { get; private set; }
-
-    public enum ShipColor
+    public enum ThemeColor
     {
         Red,    // 0
         Blue,   // 1
         Green,  // 2
         Yellow  // 3
     }
+    
+public class ColorManager : MonoBehaviour
+{
+    public static ColorManager Instance { get; private set; }
+
+
 
     private const string COLOR_PREF_KEY = "PlayerShipColor";
-    public ShipColor CurrentColor { get; private set; }
+    public ThemeColor CurrentColor { get; private set; }
 
     private void Awake()
     {
@@ -30,7 +32,7 @@ public class ColorManager : MonoBehaviour
         }
     }
 
-    public void SetColor(ShipColor color)
+    public void SetColor(ThemeColor color)
     {
         CurrentColor = color;
         PlayerPrefs.SetInt(COLOR_PREF_KEY, (int)color);
@@ -40,8 +42,8 @@ public class ColorManager : MonoBehaviour
 
     private void LoadColor()
     {
-        int savedColor = PlayerPrefs.GetInt(COLOR_PREF_KEY, (int)ShipColor.Red);
-        CurrentColor = (ShipColor)savedColor;
+        int savedColor = PlayerPrefs.GetInt(COLOR_PREF_KEY, (int)ThemeColor.Red);
+        CurrentColor = (ThemeColor)savedColor;
         Debug.Log("Color Loaded: " + CurrentColor);
     }
 }

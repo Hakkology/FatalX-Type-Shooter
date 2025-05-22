@@ -4,11 +4,11 @@ public class GameEndPanel : BasePanel
 {
     public void OnExitToMenuClicked()
     {
-        GUIManager.Instance.ReturnToMainMenu();
+        GameGUIManager.Instance.ReturnToMainMenu();
     }
 
     public void OnReplayClicked()
     {
-        GUIManager.Instance.RestartGame();
+        GameGUIManager.Instance.RestartGame();
     }
 }
