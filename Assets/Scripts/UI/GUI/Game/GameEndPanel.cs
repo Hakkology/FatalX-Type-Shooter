@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class GameEndPanel : BasePanel
 {
-    public GameObject statBlockPrefab;
-    public void OnExitToMenuClicked()
-    {
-        GameGUIManager.Instance.ReturnToMainMenu();
-    }
-
-    public void OnReplayClicked()
-    {
-        GameGUIManager.Instance.RestartGame();
-    }
+    [SerializeField] private Transform statsContainer;
+    [SerializeField] private GameObject statBlockPrefab;
+    public void OnExitToMenuClicked()   => GameGUIManager.Instance.ReturnToMainMenu();
+    public void OnReplayClicked()       => GameGUIManager.Instance.RestartGame();
 
     public override void OpenPanel()
     {
@@ -21,7 +15,7 @@ public class GameEndPanel : BasePanel
 
     private void PopulateStats()
     {
-        foreach (Transform child in this.transform)
+        foreach (Transform child in statsContainer.transform)
             Destroy(child.gameObject);
 
         var stats = new (string name, string value)[]
@@ -36,7 +30,7 @@ public class GameEndPanel : BasePanel
 
         foreach (var (name, value) in stats)
         {
-            var blockGO = Instantiate(statBlockPrefab, this.transform);
+            var blockGO = Instantiate(statBlockPrefab, statsContainer.transform);
             var block = blockGO.GetComponent<StatBlock>();
             if (block != null)
                 block.Initialize(name, value);

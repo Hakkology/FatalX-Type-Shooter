@@ -50,9 +50,10 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
             });
     }
 
-    public virtual void HidePanel() // sadece görünmez yapar ama aktif bırakır
+    public virtual void HidePanel() 
     {
         currentTween?.Kill();
+        IsOpen = false;
         currentTween = canvasGroup.DOFade(0f, transitionDuration)
             .SetEase(transitionEase)
             .SetUpdate(true)
