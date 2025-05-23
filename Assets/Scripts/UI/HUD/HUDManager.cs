@@ -8,7 +8,7 @@ public class HUDManager : MonoBehaviour
 {
     public static HUDManager Instance { get; private set; }
     public event Action<int> OnTargetCountChanged;
-    public event Action<int> OnScoreChanged;
+    public event Action<int, int> OnScoreChanged;
     public event Action<int> OnHealthChanged;
 
     [Header("Text References")]
@@ -75,8 +75,8 @@ public class HUDManager : MonoBehaviour
         OnHealthChanged -= HealthChanged;
     }
 
-    public void RaiseScoreChanged(int currentScore)
-        => OnScoreChanged?.Invoke(currentScore);
+    public void RaiseScoreChanged(int currentScore, int highScore)
+        => OnScoreChanged?.Invoke(currentScore, highScore);
 
     public void RaiseTargetCountChanged(int count)
         => OnTargetCountChanged?.Invoke(count);
@@ -88,9 +88,9 @@ public class HUDManager : MonoBehaviour
     {
         UnsubscribeEvents();
     }
-    public void UpdateScoreText(int score)
+    public void UpdateScoreText(int score, int highScore)
     {
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString() + "/" + highScore.ToString();
     }
 
     public void UpdateTargetCountText(int targetCount)

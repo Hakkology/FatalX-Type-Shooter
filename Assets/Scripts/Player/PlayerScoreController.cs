@@ -10,7 +10,7 @@ public class PlayerScoreController
     {
         ResetScore();
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
-        HUDManager.Instance.RaiseScoreChanged(0);
+        HUDManager.Instance.RaiseScoreChanged(0, HighScore);
     }
 
     // Puan ekle
@@ -24,12 +24,12 @@ public class PlayerScoreController
             PlayerPrefs.Save();
         }
         
-        HUDManager.Instance.RaiseScoreChanged(CurrentScore);
+        HUDManager.Instance.RaiseScoreChanged(CurrentScore, HighScore);
     }
 
     public void ResetScore()
     {
         CurrentScore = 0;
-        HUDManager.Instance.RaiseScoreChanged(0);
+        HUDManager.Instance.RaiseScoreChanged(0, HighScore);
     }
 }
