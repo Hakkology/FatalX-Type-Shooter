@@ -15,7 +15,7 @@ public class ProgressionController : MonoBehaviour
     [Header("Spawn Interval")]
     [SerializeField] private float initialInterval = 1f;
     [SerializeField] private float minInterval = 0.2f;
-    [SerializeField] private float intervalStep = 0.01f; 
+    [SerializeField] private float intervalStep = 0.004f; 
 
     private float _currentSpeed;
     private float _currentInterval;
@@ -50,6 +50,12 @@ public class ProgressionController : MonoBehaviour
     private void OnObjectDespawned(string word, GameObject go)
     {
         _destroyedCount++;
+        GameStatsController.Instance.AddDestroyedObject();
+
+        if (word.Length < 6)
+            GameStatsController.Instance.AddHitAsteroid();
+        else
+            GameStatsController.Instance.AddHitShip();
 
         // 1) Spawn interval‘ı düşür
         _currentInterval = Mathf.Max(minInterval, _currentInterval - intervalStep);
@@ -59,6 +65,7 @@ public class ProgressionController : MonoBehaviour
         if (_destroyedCount % speedThreshold == 0)
         {
             _currentSpeed = Mathf.Min(maxSpeed, _currentSpeed + speedStep);
+            HUDManager.Instance.UpdateChaosMeter(_currentSpeed);
         }
     }
 

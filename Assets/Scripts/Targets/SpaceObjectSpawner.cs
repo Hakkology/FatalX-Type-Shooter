@@ -43,6 +43,7 @@ public class SpaceObjectSpawner : MonoBehaviour
     public float spawnRate = 1f;
     public int maxObjects = 10;
 
+
     void Start()
     {
         HUDManager.Instance.RaiseTargetCountChanged(spawnedWords.Count);
@@ -96,24 +97,22 @@ public class SpaceObjectSpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-        float offset = 2f; 
-        float xPosition = Camera.main.ScreenToWorldPoint(
-            new Vector3(Screen.width, 0, Camera.main.nearClipPlane)
-        ).x + offset;
+        var cam = Camera.main;
+        float offset = 2f;
+        float camDistance = Mathf.Abs(cam.transform.position.z);
 
-        // 2 px offset uygulanmış yMin ve yMax
-        float yMin = Camera.main.ScreenToWorldPoint(
-            new Vector3(0, 2, Camera.main.nearClipPlane)
-        ).y;
-        
-        float yMax = Camera.main.ScreenToWorldPoint(
-            new Vector3(0, Screen.height - 2, Camera.main.nearClipPlane)
-        ).y;
+        // Sağ kenar
+        float xPos = cam.ViewportToWorldPoint(new Vector3(1, 0, camDistance)).x + offset;
 
-        float yPosition = Random.Range(yMin, yMax);
+        // Dünya birimi cinsinden marj
+        float worldMargin = 2f; // oyun alanınızda 1 birim boşluk
+        var botLeft  = cam.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
+        var topRight = cam.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
 
-        return new Vector3(xPosition, yPosition, 0);
+        float yMin = botLeft.y + worldMargin;
+        float yMax = topRight.y - worldMargin;
+        float yPos = Random.Range(yMin, yMax);
+
+        return new Vector3(xPos, yPos, 0f);
     }
-
-
 }

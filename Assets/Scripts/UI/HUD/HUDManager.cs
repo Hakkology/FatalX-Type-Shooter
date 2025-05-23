@@ -23,6 +23,11 @@ public class HUDManager : MonoBehaviour
     public CanvasGroup crosshairCanvasGroup;
     public RectTransform crosshairRectTransform;
 
+    [Header("Chaos Meter")]
+    public Slider chaosSlider;
+    private float initialSpeed = 2f;
+    private float maxSpeed = 5f;
+
     private Vector3 hiddenScale = Vector3.zero;
     private Vector3 visibleScale = Vector3.one * 0.8f;
     private Transform currentTarget;
@@ -36,9 +41,13 @@ public class HUDManager : MonoBehaviour
 
         crosshairCanvasGroup.alpha = 0f;
         crosshairRectTransform.localScale = hiddenScale;
+
+        chaosSlider.minValue = 0f;
+        chaosSlider.maxValue = 1f;
+        chaosSlider.value = 0f;
     }
 
-    
+
     private void Update()
     {
         if (currentTarget != null)
@@ -105,7 +114,7 @@ public class HUDManager : MonoBehaviour
             hpIcons[i].gameObject.SetActive(i < remainingHealth);
         }
     }
-    
+
     public void ShowCrosshair(Transform target)
     {
         currentTarget = target;
@@ -134,5 +143,11 @@ public class HUDManager : MonoBehaviour
             {
                 crosshairRectTransform.localScale = hiddenScale;
             });
+    }
+    
+    public void UpdateChaosMeter(float currentSpeed)
+    {
+        float t = Mathf.InverseLerp(initialSpeed, maxSpeed, currentSpeed);
+        chaosSlider.DOValue(t, 0.5f).SetUpdate(true);
     }
 }

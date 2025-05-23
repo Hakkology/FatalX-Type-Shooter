@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour
 
     private Color GetLaserColor()
     {
-        // Lazer rengi ColorManager'dan alınıyor
         switch (ColorManager.Instance.CurrentColor)
         {
             case ThemeColor.Red:
