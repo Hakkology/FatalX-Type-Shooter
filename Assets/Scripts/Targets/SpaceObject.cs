@@ -23,7 +23,7 @@ public class SpaceObject : MonoBehaviour
     private int _hp;
     private string _initialWord;
     private bool _missedObject = false;
-    private float margin = 3f;
+    private float margin = -5f;
     private float offscreenX;
 
     public event Action LockedAsTargetEvent;
@@ -85,7 +85,7 @@ public class SpaceObject : MonoBehaviour
         float zAngle = _speed * _rotationMultiplier * randomFactor * Time.deltaTime;
         _spriteRenderer.gameObject.transform.Rotate(0f, 0f, zAngle);
         _wordText.transform.rotation = Quaternion.identity;
-        
+
         if (transform.position.x < offscreenX && !_missedObject)
             OnMissed();
     }
