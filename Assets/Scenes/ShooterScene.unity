@@ -3666,7 +3666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundLibrary: {fileID: 11400000, guid: f7ab9b311d353b54a88c02a4043894dc, type: 2}
-  poolSize: 3
+  poolSize: 10
   audioMixer: {fileID: 24100000, guid: 0acea7f0b37b86a7b9afed3695f76fc0, type: 2}
   mixerGroup: {fileID: 2251315789484597922, guid: 0acea7f0b37b86a7b9afed3695f76fc0, type: 2}
 --- !u!114 &1355842345

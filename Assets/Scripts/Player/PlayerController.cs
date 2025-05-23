@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
         GameObject laser = LaserPool.Instance.GetLaser();
         var laserController = laser.GetComponent<LaserController>();
         laserController.ActivateLaser(laserSpawnPoint.position, transform.rotation);
+        SoundController.RequestSound(SoundID.LaserShoot);
 
         FlashShootLight();
         // _score.AddScore(1);

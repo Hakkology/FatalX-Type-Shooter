@@ -5,17 +5,15 @@ using UnityEngine.Audio;
 public class SoundController : MonoBehaviour
 {
     [SerializeField] private SoundLibrary soundLibrary;
-    [SerializeField] private int poolSize = 3;
-    [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioMixerGroup mixerGroup; 
 
-    private AudioSource[] _audioSources;
-    private int _currentSourceIndex = 0;
+    private AudioSource _audioSource;
 
     public static event Action<SoundID> OnSoundRequested;
 
     void Awake()
     {
+        // Enforce singleton
         var others = FindObjectsOfType<SoundController>();
         if (others.Length > 1)
         {
@@ -23,15 +21,13 @@ public class SoundController : MonoBehaviour
             return;
         }
 
-        _audioSources = new AudioSource[poolSize];
-        for (int i = 0; i < poolSize; i++)
-        {
-            var source = gameObject.AddComponent<AudioSource>();
-            source.outputAudioMixerGroup = mixerGroup;
-            _audioSources[i] = source;
-        }
+        // Single AudioSource for all SFX
+        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.outputAudioMixerGroup = mixerGroup;
 
         soundLibrary.Initialize();
+        foreach (var entry in soundLibrary.sounds)
+            entry.clip.LoadAudioData(); 
         OnSoundRequested += HandleSoundRequest;
     }
 
@@ -40,25 +36,17 @@ public class SoundController : MonoBehaviour
         var clip = soundLibrary.GetClip(id);
         if (clip == null)
         {
-            Debug.LogWarning($"SoundManager: Clip not found for {id}");
+            Debug.LogWarning($"SoundController: Clip not found for {id}");
             return;
         }
 
-        var source = GetNextAvailableAudioSource();
-        source.clip = clip;
-        source.volume = 1f; 
-        source.Play();
+        _audioSource.PlayOneShot(clip);
     }
 
-
-    private float DbToLinear(float db) => Mathf.Pow(10f, db / 20f);
-    void OnDestroy() => OnSoundRequested -= HandleSoundRequest;
-    public static void RequestSound(SoundID id) => OnSoundRequested?.Invoke(id);
-
-    private AudioSource GetNextAvailableAudioSource()
+    void OnDestroy()
     {
-        var source = _audioSources[_currentSourceIndex];
-        _currentSourceIndex = (_currentSourceIndex + 1) % _audioSources.Length;
-        return source;
+        OnSoundRequested -= HandleSoundRequest;
     }
+
+    public static void RequestSound(SoundID id) => OnSoundRequested?.Invoke(id);
 }

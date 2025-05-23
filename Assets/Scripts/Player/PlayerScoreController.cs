@@ -24,6 +24,7 @@ public class PlayerScoreController
             PlayerPrefs.Save();
         }
         
+        SoundController.RequestSound(SoundID.ScoreUp);
         HUDManager.Instance.RaiseScoreChanged(CurrentScore, HighScore);
     }
 

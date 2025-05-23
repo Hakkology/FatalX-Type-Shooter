@@ -28,11 +28,13 @@ public class PlayerShootState : IPlayerState
                 if (key[0] == target._word[0])
                 {
                     GameStatsController.Instance.AddCorrectKeyPress();
+                    SoundController.RequestSound(SoundID.CorrectType);
                     player.ShootLaserAtTarget();
                 }
                 else
                 {
                     GameStatsController.Instance.AddWrongKeyPress();
+                    SoundController.RequestSound(SoundID.FalseType);
                     // Debug.Log("Wrong letter: " + key);
                 }
             }

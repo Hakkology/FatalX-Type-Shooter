@@ -11,6 +11,7 @@ public class GameEndPanel : BasePanel
     {
         base.OpenPanel();
         PopulateStats();
+        SoundController.RequestSound(SoundID.GameOver);
     }
 
     private void PopulateStats()

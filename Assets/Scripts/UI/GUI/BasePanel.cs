@@ -24,6 +24,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
     {
         currentTween?.Kill();
         IsOpen = true;
+        SoundController.RequestSound(SoundID.ButtonClick);
         gameObject.SetActive(true);
         currentTween = canvasGroup.DOFade(1f, transitionDuration)
             .SetEase(transitionEase)

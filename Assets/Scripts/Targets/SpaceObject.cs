@@ -129,6 +129,7 @@ public class SpaceObject : MonoBehaviour
 
     private void OnLaserHit()
     {
+        SoundController.RequestSound(_initialWord.Length < 7 ? SoundID.ImpactAstro : SoundID.ImpactShip);
         bool isDead = TakeDamage();
         if (isDead)
             DestroyedEvent?.Invoke();
@@ -140,6 +141,7 @@ public class SpaceObject : MonoBehaviour
             _spawner.DeSpawnObject(this._initialWord, gameObject);
 
         _player.ScoreController.AddScore(_initialWord.Length);
+        SoundController.RequestSound(_initialWord.Length < 7 ? SoundID.ExplosionAstro : SoundID.ExplosionShip);
         GameObject explosionVFX = VFXPool.Instance.GetExplosionVFX();
         if (explosionVFX != null)
         {
