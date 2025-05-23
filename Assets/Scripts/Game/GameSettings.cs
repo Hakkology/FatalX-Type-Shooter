@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
+public enum Language { English, Turkish }
 public class GameSettings : MonoBehaviour
 {
     public static GameSettings Instance { get; private set; }
@@ -18,7 +19,6 @@ public class GameSettings : MonoBehaviour
 
     [Header("Vibration")]
     public bool vibrationEnabled = true;
-    public enum Language { English, Turkish }
     public Language currentLanguage = Language.English;
 
     void Awake()

@@ -44,13 +44,13 @@ public class SettingsBasePanel : BasePanel
 
     private void OnLanguageChanged(int index)
     {
-        GameSettings.Instance.SetLanguage((GameSettings.Language)index);
+        GameSettings.Instance.SetLanguage((Language)index);
     }
 
-    private void OnVibrationToggled(bool isOn)
-    {
-        GameSettings.Instance.SetVibration(isOn);
-    }
+    // private void OnVibrationToggled(bool isOn)
+    // {
+    //     GameSettings.Instance.SetVibration(isOn);
+    // }
 
     private void OnMuteToggled(bool isMuted)
     {

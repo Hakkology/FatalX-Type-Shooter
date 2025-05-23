@@ -12,7 +12,7 @@ public class SpaceObjectSpawner : MonoBehaviour
     [SerializeField] private ProgressionController progressionManager;
     public List<string> spawnedWords = new List<string>();
     public List<GameObject> spawnedObjects = new List<GameObject>();    
-    private string[] words = {
+    private string[] _englishWords = {
         "APPLE", "ORANGE", "BANANA", "CHERRY", "PEACH", "MELON", "GRAPE", "KIWI", "MANGO", "LEMON",
         "STRAWBERRY", "BLUEBERRY", "RASPBERRY", "WATERMELON", "PINEAPPLE", "COCONUT", "PAPAYA", "PLUM", "PEAR", "TOMATO",
         "CUCUMBER", "CARROT", "ONION", "GARLIC", "PEPPER", "POTATO", "BROCCOLI", "SPINACH", "LETTUCE", "CABBAGE",
@@ -39,6 +39,31 @@ public class SpaceObjectSpawner : MonoBehaviour
         "PAPER", "SCISSORS", "HAMMER", "SAW", "DRILL", "WRENCH", "SCREWDRIVER", "PLIERS", "TAPE"
     };
 
+    private string[] _turkishWords = {
+        "MASA","SANDALYE","KOLTUK","BILGISAYAR","TELEFON","KAPI","PENCERE","AYNA","HALI","LAMBA",
+        "KITAPLIK","DEFTER","KALEM","KIRTASIYE","SILGI","CETVEL","PUSULA","MAKAS","OGRETMEN","OGRENCI",
+        "MUHENDIS","DOKTOR","MUZIKCI","SANATCI","MUZIK","YAZAR","SARKICI","HEKIM","OKUL","HASTANE",
+        "ECZANE","MARKET","RESTORAN","OTEL","HAVAALANI","LIMAN","KIR","KOY","KEDI","KOPEK",
+        "KUZU","INEK","FIL","ASLAN","KAPLAN","AYI","KURT","YILAN","BALIK","KUS",
+        "SERCE","KIRMIZI","YESIL","MAVI","SARI","TURUNCU","MOR","LACIVERT","PEMBE","BEYAZ",
+        "SIYAH","ELMA","PORTAKAL","MUZ","SEFTALI","KAVUN","UZUM","KIVI","LIMON","CILEK",
+        "ARMUT","KIRAZ","NAR","KAYISI","DOMATES","SALATALIK","PATATES","HAVUC","PANCAR","BROKOLI",
+        "ISPANAK","LAHANA","PATLICAN","TURP","SARIMSAK","KEREVIZ","ENGINAR","KABAK","MISIR","BIBER",
+        "MANTAR","BAS","KOL","BACAK","KALP","BEYIN","GOGUS","KARNI","OMUZ","SIRT",
+        "BOYUN","DIRSEK","BILEK","YEMEK","CAY","ICMEK","ZEYTIN","PEYNIR","SUT","YOGURT",
+        "RECEL","TEREYAGI","KAHVALTI","TATLILAR","CEREZ","PASTA","BOREK","KURABIYE","KREMA","TURTA",
+        "CICEK","GUL","LALE","PAPATYA","ORKIDE","MENEKSE","LAVANTA","AYCICEGI","YASEMIN","NEKTAR",
+        "GOKGURULTU","YILDIRIM","YAGMUR","KAR","DOLU","FIRTINA","TOPRAK","DENIZ","ALEV","ATES",
+        "IKLIM","GUNES","YILDIZ","UYDU","METEOR","PLANET","GALAKSI","NEBULA","KOMET","GULMEK",
+        "AGLAMAK","YUZMEK","KOSMAK","OTURMAK","KALKMAK","SORMAK","CEVAPLAMAK","DUSUNMEK","YAZMAK","RESIM",
+        "FILM","MAKALE","HABER","YAZI","SOZ","KITAP","DERGI","GAZETE","YOL","OTOBUS",
+        "TREN","METRO","ULASIM","SEYAHAT","GUZERGAH","BINMEK","INMEK","SICAKLIK","BASINC","NEM",
+        "RUZGAR","BULUT","SIS","KAHVE","SAKIZ","MASAJ","RIHTIM","ISIK","SES","DANS",
+        "TOP","VAKIT","ZAMAN","GECE","GUN","HAFTA","YIL","KIYI","DALGA","SAYFA"
+    };
+
+    private string[] _words;
+
     public GameObject objectPrefab;
     public float spawnRate = 1f;
     public int maxObjects = 10;
@@ -47,6 +72,9 @@ public class SpaceObjectSpawner : MonoBehaviour
     void Start()
     {
         HUDManager.Instance.RaiseTargetCountChanged(spawnedWords.Count);
+        _words = (GameSettings.Instance.currentLanguage == Language.English)
+            ? _englishWords
+            : _turkishWords;
         StartCoroutine(nameof(SpawnObject));
     }
 
@@ -62,12 +90,12 @@ public class SpaceObjectSpawner : MonoBehaviour
 
             // İlk harfleri topla ve filtrele
             var existingFirstLetters = new HashSet<char>(spawnedWords.Select(word => word[0]));
-            var filteredWords = words.Where(word => !existingFirstLetters.Contains(word[0])).ToList();
+            var filteredWords = _words.Where(word => !existingFirstLetters.Contains(word[0])).ToList();
 
             // Uygun kelime yoksa tüm kelimelerden rastgele seç
             string selectedWord = filteredWords.Count > 0
                 ? filteredWords[Random.Range(0, filteredWords.Count)]
-                : words[Random.Range(0, words.Length)];
+                : _words[Random.Range(0, _words.Length)];
 
             // Yeni uzay nesnesi oluştur
             Vector3 spawnPosition = GetSpawnPosition();
