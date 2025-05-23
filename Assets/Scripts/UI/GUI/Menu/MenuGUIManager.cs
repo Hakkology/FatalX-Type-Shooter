@@ -4,47 +4,63 @@ using UnityEngine.SceneManagement;
 public class MenuGUIManager : MonoBehaviour
 {
     [Header("Panels")]
-    [SerializeField] private BasePanel creditsPanel;   
-    [SerializeField] private BasePanel settingsPanel;    
+    [SerializeField] private MenuBasePanel mainMenuPanel;
+    [SerializeField] private BasePanel settingsPanel;
+    [SerializeField] private BasePanel creditsPanel;
 
     private void Start()
     {
-        creditsPanel.ClosePanel();
         settingsPanel.ClosePanel();
+        creditsPanel.ClosePanel();
+        mainMenuPanel.OpenPanel();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (settingsPanel.IsOpen)
+            {
                 settingsPanel.ClosePanel();
-            if (creditsPanel.IsOpen)
+                mainMenuPanel.OpenPanel();
+            }
+            else if (creditsPanel.IsOpen)
+            {
                 creditsPanel.ClosePanel();
+                mainMenuPanel.OpenPanel();
+            }
+            else if (mainMenuPanel.IsOpen)
+            {
+                OnExitPressed();
+            }
         }
     }
 
     public void OnPlayPressed()
     {
+        mainMenuPanel.ClosePanel();
         SceneManager.LoadScene("ShooterScene");
     }
 
     public void OnCreditsPressed()
     {
-        if (creditsPanel.IsOpen)
-            settingsPanel.ClosePanel();
-
+        mainMenuPanel.ClosePanel();
         settingsPanel.ClosePanel();
         creditsPanel.OpenPanel();
     }
 
     public void OnSettingsPressed()
     {
-        if (settingsPanel.IsOpen)
-            settingsPanel.ClosePanel();
-        
+        mainMenuPanel.ClosePanel();
         creditsPanel.ClosePanel();
         settingsPanel.OpenPanel();
+    }
+
+    public void OnBackToMenuPressed()
+    {
+        settingsPanel.ClosePanel();
+        creditsPanel.ClosePanel();
+        mainMenuPanel.OpenPanel();
     }
 
     public void OnExitPressed()

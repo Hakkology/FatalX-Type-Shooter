@@ -5,6 +5,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpaceObject : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class SpaceObject : MonoBehaviour
     private int _hp;
     private string _initialWord;
     private bool _missedObject = false;
+    private float margin = 3f;
+    private float offscreenX;
 
     public event Action LockedAsTargetEvent;
     public event Action LaserHitEvent;
@@ -38,6 +41,9 @@ public class SpaceObject : MonoBehaviour
         _canvas.renderMode = RenderMode.WorldSpace;
         _canvas.worldCamera = Camera.main;
         _collider2D.enabled = false;
+
+        float leftWorldX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        offscreenX = leftWorldX - margin;
 
         LockedAsTargetEvent += OnLockedAsTarget;
         LaserHitEvent += OnLaserHit;
@@ -74,15 +80,14 @@ public class SpaceObject : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.left * _speed * Time.deltaTime);
-        float zAngle = _speed * _rotationMultiplier * Time.deltaTime;
-        _spriteRenderer.gameObject.transform.Rotate(0f, 0f, zAngle);
 
-        // child Text’i dünya dönüşünden koru
+        float randomFactor = Random.Range(0.75f, 1.25f);
+        float zAngle = _speed * _rotationMultiplier * randomFactor * Time.deltaTime;
+        _spriteRenderer.gameObject.transform.Rotate(0f, 0f, zAngle);
         _wordText.transform.rotation = Quaternion.identity;
-        if (transform.position.x < -10 && !_missedObject)
-        {
+        
+        if (transform.position.x < offscreenX && !_missedObject)
             OnMissed();
-        }
     }
 
     void SpaceObjectSpriteLoader()

@@ -10,6 +10,8 @@ public class GameGUIManager : MonoBehaviour
     public BasePanel settingsPanel;
     public BasePanel gameEndPanel;
 
+    private bool _anyOpen;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -25,19 +27,12 @@ public class GameGUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menuPanel.IsOpen)
-            {
-                menuPanel.HidePanel();
-            }
-            else if (settingsPanel.IsOpen)
-            {
-                settingsPanel.HidePanel();
-            }
-            OpenMenu();
+            if (_anyOpen)  HideAllPanels();
+            else OpenMenu();
         }
 
-        bool anyOpen = menuPanel.IsOpen || settingsPanel.IsOpen || gameEndPanel.IsOpen;
-        Time.timeScale = anyOpen ? 0f : 1f;
+        _anyOpen = menuPanel.IsOpen || settingsPanel.IsOpen || gameEndPanel.IsOpen;
+        Time.timeScale = _anyOpen ? 0f : 1f;
     }
 
     public void OpenSettings()

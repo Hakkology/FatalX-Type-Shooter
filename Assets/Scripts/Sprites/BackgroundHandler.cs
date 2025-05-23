@@ -46,7 +46,7 @@ public class BackgroundSpriteHandler : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             Transform t = bgRenderers[i].transform;
-            t.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            t.Translate(Vector3.left * moveSpeed * Time.unscaledDeltaTime);
 
             // Sprite tamamen görünüm dışına çıktıysa
             if (t.position.x <= -viewWidth)
