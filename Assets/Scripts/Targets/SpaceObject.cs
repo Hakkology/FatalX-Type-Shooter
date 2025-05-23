@@ -17,7 +17,8 @@ public class SpaceObject : MonoBehaviour
     private CameraShakeController _cameraShake;
     private PlayerController _player;
 
-    private float speed = 2;
+    private float _speed = 2;
+    private float _rotationMultiplier = 10f;
     private int _hp;
     private string _initialWord;
     private bool _missedObject = false;
@@ -28,7 +29,7 @@ public class SpaceObject : MonoBehaviour
 
     void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _canvas = GetComponentInChildren<Canvas>();
         _wordText = GetComponentInChildren<TextMeshProUGUI>();
         _collider2D = GetComponent<BoxCollider2D>();
@@ -43,21 +44,41 @@ public class SpaceObject : MonoBehaviour
         DestroyedEvent += OnDestroyed;
     }
 
-    public void Initialize(SpaceObjectSpawner spawner, string word, PlayerController player)
+    public void Initialize(SpaceObjectSpawner spawner, string word, PlayerController player, float speed)
     {
         _spawner = spawner;
         _player = player;
         _word = word;
+        _speed = speed;
         _hp = word.Length;
         _initialWord = _word;
         UpdateWordText();
         SpaceObjectSpriteLoader();
+        AdjustColliderSize();
+    }
+
+    private void AdjustColliderSize()
+    {
+        switch (_initialWord.Length)
+        {
+            case<6:
+                _collider2D.size = new Vector2(2,2);
+                break;
+            default:
+                _collider2D.size = new Vector2(3,3);
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * _speed * Time.deltaTime);
+        float zAngle = _speed * _rotationMultiplier * Time.deltaTime;
+        _spriteRenderer.gameObject.transform.Rotate(0f, 0f, zAngle);
+
+        // child Text’i dünya dönüşünden koru
+        _wordText.transform.rotation = Quaternion.identity;
         if (transform.position.x < -10 && !_missedObject)
         {
             OnMissed();

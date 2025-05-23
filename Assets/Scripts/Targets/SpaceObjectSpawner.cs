@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 public class SpaceObjectSpawner : MonoBehaviour
 {
     public PlayerController playerController;
+    public event Action<string, GameObject> ObjectDespawned;
+    [SerializeField] private ProgressionController progressionManager;
     public List<string> spawnedWords = new List<string>();
     public List<GameObject> spawnedObjects = new List<GameObject>();    
     private string[] words = {
@@ -70,7 +72,10 @@ public class SpaceObjectSpawner : MonoBehaviour
             Vector3 spawnPosition = GetSpawnPosition();
             GameObject spaceObject = Instantiate(objectPrefab, spawnPosition, Quaternion.identity);
             SpaceObject spaceObjectScript = spaceObject.GetComponent<SpaceObject>();
-            spaceObjectScript.Initialize(this, selectedWord, playerController);
+
+            float speed = progressionManager.GetCurrentSpeed();
+
+            spaceObjectScript.Initialize(this, selectedWord, playerController, speed);
             spawnedWords.Add(selectedWord);
             spawnedObjects.Add(spaceObject);
 
@@ -83,6 +88,7 @@ public class SpaceObjectSpawner : MonoBehaviour
     public void DeSpawnObject(string word, GameObject spaceObject)
     {
         Debug.Log("This word is despawned: " + word);
+        ObjectDespawned?.Invoke(word, spaceObject);
         spawnedWords.Remove(word);
         spawnedObjects.Remove(spaceObject);
         HUDManager.Instance.RaiseTargetCountChanged(spawnedWords.Count);
