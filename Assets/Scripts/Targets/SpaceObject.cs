@@ -67,7 +67,7 @@ public class SpaceObject : MonoBehaviour
     {
         switch (_initialWord.Length)
         {
-            case<6:
+            case<7:
                 _collider2D.size = new Vector2(2,2);
                 break;
             default:
