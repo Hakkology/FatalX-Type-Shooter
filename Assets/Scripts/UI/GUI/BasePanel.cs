@@ -27,6 +27,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
         gameObject.SetActive(true);
         currentTween = canvasGroup.DOFade(1f, transitionDuration)
             .SetEase(transitionEase)
+            .SetUpdate(true)
             .OnStart(() =>
             {
                 canvasGroup.interactable = true;
@@ -40,6 +41,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
         IsOpen = false;
         currentTween = canvasGroup.DOFade(0f, transitionDuration)
             .SetEase(transitionEase)
+            .SetUpdate(true)
             .OnComplete(() =>
             {
                 canvasGroup.interactable = false;
@@ -53,6 +55,7 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
         currentTween?.Kill();
         currentTween = canvasGroup.DOFade(0f, transitionDuration)
             .SetEase(transitionEase)
+            .SetUpdate(true)
             .OnComplete(() =>
             {
                 canvasGroup.interactable = false;

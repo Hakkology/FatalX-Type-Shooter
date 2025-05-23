@@ -12,17 +12,12 @@ public class GameGUIManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
-    void Start() {
+    void Start()
+    {
         HideAllPanels();
     }
 
@@ -40,11 +35,9 @@ public class GameGUIManager : MonoBehaviour
             }
             OpenMenu();
         }
-    }
 
-    public void ToggleMenu()
-    {
-
+        bool anyOpen = menuPanel.IsOpen || settingsPanel.IsOpen || gameEndPanel.IsOpen;
+        Time.timeScale = anyOpen ? 0f : 1f;
     }
 
     public void OpenSettings()

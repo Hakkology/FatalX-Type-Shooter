@@ -17,5 +17,10 @@ public class PlayerHealthController
     {
         CurrentHP = Mathf.Max(0, CurrentHP - amount);
         HUDManager.Instance.RaiseHealthChanged(CurrentHP);
+
+        if (CurrentHP == 0)
+            GameGUIManager.Instance.ShowGameEnd();
     }
+
+
 }
