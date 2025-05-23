@@ -28,6 +28,8 @@ public class MusicManager : MonoBehaviour
 
         OnStartMusicRequested += HandleStartMusic;
         OnStopMusicRequested += HandleStopMusic;
+
+        OnStartMusicRequested.Invoke();
     }
 
     void OnDestroy()

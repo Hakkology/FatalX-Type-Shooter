@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7ffecdaa40ba3aea43da4794148157, type: 3}
   m_Name: MusicLibrary
   m_EditorClassIdentifier: 
-  musicClips: []
+  musicClips:
+  - {fileID: 8300000, guid: fa3d5fba1c393694cb1e493510d44a72, type: 3}
+  - {fileID: 8300000, guid: 297939667175ff94cbfcc173de69cabc, type: 3}
+  - {fileID: 8300000, guid: 2dbaace0ced68fb4ca9db0443840c8c2, type: 3}
+  - {fileID: 8300000, guid: 195308231049e5e41ac7e5120d722e6d, type: 3}
