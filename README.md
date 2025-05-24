@@ -79,8 +79,6 @@ Players pilot a spaceship that locks onto and shoots down space objects by typin
 Play the game online (WebGL) at:  
 https://webbysoftinit.com/games/fatalX
 
-Go ahead and try the game!
-
 ---
 
 <a id="tr"></a>
@@ -159,7 +157,5 @@ Oyuncular bir uzay gemisini kontrol eder; ekranda sağdan kayan nesnelerin üzer
 
 ## Erişim
 
-WebGL üzerinden oyunu şu adresten oynayın:  
+WebGL üzerinden oyunu şu adresten oynayabilirsiniz:  
 https://webbysoftinit.com/games/fatalX
-
-Hadi, oyunu deneyin!
