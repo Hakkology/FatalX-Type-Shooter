@@ -62,7 +62,6 @@ Players pilot a spaceship that locks onto and shoots down space objects by typin
 
 - **Audio**: Master, music, and SFX volume sliders.  
 - **Language**: Toggle between English and Turkish word lists.  
-- **Vibration**: Enable or disable device vibration feedback.
 
 ---
 
@@ -71,7 +70,6 @@ Players pilot a spaceship that locks onto and shoots down space objects by typin
 - **Engine & Language**: Unity (C#)  
 - **Key Packages**:  
   - DOTween for smooth animations  
-  - TextMeshPro for crisp text rendering  
   - Universal Render Pipeline for enhanced visuals  
 
 ---
@@ -147,7 +145,6 @@ Oyuncular bir uzay gemisini kontrol eder; ekranda sağdan kayan nesnelerin üzer
 
 - **Ses**: Master, müzik ve efekt ses düzeyleri  
 - **Dil**: İngilizce ve Türkçe kelime listeleri arasında geçiş  
-- **Titreşim**: Cihaz titreşimini açma/kapatma  
 
 ---
 
@@ -156,7 +153,6 @@ Oyuncular bir uzay gemisini kontrol eder; ekranda sağdan kayan nesnelerin üzer
 - **Motor & Dil**: Unity (C#)  
 - **Kilit Paketler**:  
   - DOTween (animasyonlar)  
-  - TextMeshPro (metin render)  
   - Universal Render Pipeline (grafikler)  
 
 ---
