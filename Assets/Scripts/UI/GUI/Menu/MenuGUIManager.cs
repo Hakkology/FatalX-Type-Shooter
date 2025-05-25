@@ -63,11 +63,14 @@ public class MenuGUIManager : MonoBehaviour
         mainMenuPanel.OpenPanel();
     }
 
+    // Unity oyununuzda exit fonksiyonu için
     public void OnExitPressed()
     {
-        Application.Quit();
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-    #endif
+        // WebGL için özel bir kontrol
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            Application.ExternalEval("if(typeof exitUnityGame === 'function') exitUnityGame();");
+        #else
+            Application.Quit();
+        #endif
     }
 }

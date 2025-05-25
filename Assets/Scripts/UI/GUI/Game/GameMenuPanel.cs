@@ -17,8 +17,14 @@ public class GameMenuPanel : BasePanel
         GameGUIManager.Instance.ReturnToMainMenu();
     }
 
-    public void OnExitGameClicked()
+    // Unity oyununuzda exit fonksiyonu için
+    public void OnExitPressed()
     {
-        Application.Quit();
+        // WebGL için özel bir kontrol
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            Application.ExternalEval("if(typeof exitUnityGame === 'function') exitUnityGame();");
+        #else
+            Application.Quit();
+        #endif
     }
 }
