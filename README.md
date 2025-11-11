@@ -3,9 +3,9 @@
 <a id="en"></a>
 ## EN
 
-# ZType-Proto
+# Fatal-X
 
-ZType-Proto is a typing-based space shooter prototype where you defend against incoming asteroids and enemy ships by typing the words displayed on them.
+Fatal-X is a typing-based space shooter prototype where you defend against incoming asteroids and enemy ships by typing the words displayed on them.
 
 ---
 
@@ -84,9 +84,9 @@ https://webbysoftinit.com/games/fatalX
 <a id="tr"></a>
 ## TR
 
-# ZType-Proto
+# Fatal-X
 
-ZType-Proto, gelen asteroid ve düşman gemileri üzerlerindeki kelimeleri yazarak yok ettiğiniz bir yazım temelli uzay nişancı prototip oyunudur.
+Fatal-X, gelen asteroid ve düşman gemileri üzerlerindeki kelimeleri yazarak yok ettiğiniz bir yazım temelli uzay nişancı prototip oyunudur.
 
 ---
 
